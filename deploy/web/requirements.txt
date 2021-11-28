@@ -1,4 +1,5 @@
 Django
+Pillow
 mysqlclient
 django-mysql
 # django-grappelli
