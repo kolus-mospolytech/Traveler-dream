@@ -32,9 +32,10 @@ class BusinessProcess(models.Model):
     update_date = models.DateTimeField()
 
     class Meta:
-        managed = False
         db_table = 'BusinessProcess'
         unique_together = (('id', 'agreement', 'status'),)
+        verbose_name = 'Бизнес процесс'
+        verbose_name_plural = 'Бизнес процессы'
 
 
 class City(models.Model):
@@ -42,9 +43,10 @@ class City(models.Model):
     name = models.CharField(max_length=45)
 
     class Meta:
-        managed = False
         db_table = 'City'
         unique_together = (('id', 'country'),)
+        verbose_name = 'Город'
+        verbose_name_plural = 'Города'
 
 
 class Client(models.Model):
@@ -56,18 +58,20 @@ class Client(models.Model):
     birth_place = models.CharField(max_length=45)
 
     class Meta:
-        managed = False
         db_table = 'Client'
         unique_together = (('id', 'status'),)
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'
 
 
-class Clientstatus(models.Model):
+class ClientStatus(models.Model):
     name = models.CharField(max_length=45)
     description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'ClientStatus'
+        verbose_name = 'Статус Клиента'
+        verbose_name_plural = 'Статусы Клиентов'
 
 
 class Contract(models.Model):
