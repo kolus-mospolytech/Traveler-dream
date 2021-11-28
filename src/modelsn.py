@@ -21,23 +21,6 @@ class Bill(models.Model):
         verbose_name_plural = 'Чеки'
 
 
-class BusinessProcess(models.Model):
-    id = models.IntegerField(primary_key=True)
-    agreement = models.ForeignKey('Preliminaryagreement', models.DO_NOTHING, db_column='agreement')
-    status = models.ForeignKey('Processstatus', models.DO_NOTHING, db_column='status')
-    contract = models.ForeignKey('Contract', models.DO_NOTHING, db_column='contract', blank=True, null=True)
-    bill = models.ForeignKey(Bill, models.DO_NOTHING, db_column='bill', blank=True, null=True)
-    name = models.CharField(max_length=45)
-    creation_date = models.DateTimeField()
-    update_date = models.DateTimeField()
-
-    class Meta:
-        db_table = 'BusinessProcess'
-        unique_together = (('id', 'agreement', 'status'),)
-        verbose_name = 'Бизнес процесс'
-        verbose_name_plural = 'Бизнес процессы'
-
-
 class City(models.Model):
     country = models.ForeignKey('Country', models.DO_NOTHING, db_column='country')
     name = models.CharField(max_length=45)
@@ -50,7 +33,7 @@ class City(models.Model):
 
 
 class Client(models.Model):
-    status = models.ForeignKey('Clientstatus', models.DO_NOTHING, db_column='status')
+    status = models.ForeignKey('ClientStatus', models.DO_NOTHING, db_column='status')
     name = models.CharField(max_length=45)
     fullname = models.CharField(max_length=255)
     sex = models.CharField(max_length=1)
@@ -80,16 +63,18 @@ class Contract(models.Model):
     cost = models.DecimalField(max_digits=9, decimal_places=2)
 
     class Meta:
-        managed = False
         db_table = 'Contract'
+        verbose_name = 'Договор'
+        verbose_name_plural = 'Договоры'
 
 
 class Country(models.Model):
     name = models.CharField(max_length=45)
 
     class Meta:
-        managed = False
         db_table = 'Country'
+        verbose_name = 'Страна'
+        verbose_name_plural = 'Страны'
 
 
 class Currency(models.Model):
@@ -99,8 +84,9 @@ class Currency(models.Model):
     update_date = models.DateTimeField()
 
     class Meta:
-        managed = False
         db_table = 'Currency'
+        verbose_name = 'Валюта'
+        verbose_name_plural = 'Валюты'
 
 
 class Employee(models.Model):
@@ -115,42 +101,46 @@ class Employee(models.Model):
     photo = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'Employee'
         unique_together = (('id', 'position', 'organization'),)
+        verbose_name = 'Сотрудник'
+        verbose_name_plural = 'Сотрудники'
 
 
-class Feedingtype(models.Model):
+class FeedingType(models.Model):
     name = models.CharField(max_length=45)
     description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'FeedingType'
+        verbose_name = 'Тип Питания'
+        verbose_name_plural = 'Типы Питания'
 
 
 class Hotel(models.Model):
     city = models.ForeignKey(City, models.DO_NOTHING, db_column='city')
-    type = models.ForeignKey('Hoteltype', models.DO_NOTHING, db_column='type')
+    type = models.ForeignKey('HotelType', models.DO_NOTHING, db_column='type')
     name = models.CharField(max_length=45)
     address = models.CharField(max_length=255)
 
     class Meta:
-        managed = False
         db_table = 'Hotel'
         unique_together = (('id', 'city'),)
+        verbose_name = 'Отель'
+        verbose_name_plural = 'Отели'
 
 
-class Hoteltype(models.Model):
+class HotelType(models.Model):
     name = models.CharField(max_length=45)
     description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'HotelType'
+        verbose_name = 'Тип Отеля'
+        verbose_name_plural = 'Типы Отелей'
 
 
-class Internationalpassport(models.Model):
+class InternationalPassport(models.Model):
     client = models.OneToOneField(Client, models.DO_NOTHING, db_column='client')
     type = models.CharField(max_length=3)
     state = models.CharField(max_length=3)
@@ -167,7 +157,6 @@ class Internationalpassport(models.Model):
     authority = models.CharField(max_length=45)
 
     class Meta:
-        managed = False
         db_table = 'InternationalPassport'
         unique_together = (('id', 'client'),)
 
@@ -179,8 +168,9 @@ class Organization(models.Model):
     mail = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'Organization'
+        verbose_name = 'Организация'
+        verbose_name_plural = 'Организации'
 
 
 class Passport(models.Model):
@@ -198,9 +188,10 @@ class Passport(models.Model):
     birth_place = models.CharField(max_length=45)
 
     class Meta:
-        managed = False
         db_table = 'Passport'
         unique_together = (('id', 'client'),)
+        verbose_name = 'Паспорт'
+        verbose_name_plural = 'Паспорта'
 
 
 class Position(models.Model):
@@ -208,11 +199,12 @@ class Position(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'Position'
+        verbose_name = 'Должность'
+        verbose_name_plural = 'Должности'
 
 
-class Preliminaryagreement(models.Model):
+class PreliminaryAgreement(models.Model):
     id = models.IntegerField(primary_key=True)
     organization = models.ForeignKey(Organization, models.DO_NOTHING, db_column='organization')
     employee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='employee', blank=True, null=True)
@@ -222,39 +214,41 @@ class Preliminaryagreement(models.Model):
     trip_end = models.DateField()
 
     class Meta:
-        managed = False
         db_table = 'PreliminaryAgreement'
+        verbose_name = 'Предварительное Соглашение'
+        verbose_name_plural = 'Предварительные Соглашения'
 
 
-class Processstatus(models.Model):
+class ProcessStatus(models.Model):
     name = models.CharField(max_length=45)
     description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'ProcessStatus'
+        verbose_name = 'Статус Процесса'
+        verbose_name_plural = 'Статусы Процесса'
 
 
-class Roomtype(models.Model):
+class RoomType(models.Model):
     name = models.CharField(max_length=45)
     description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'RoomType'
+        verbose_name = 'Тип Комнаты'
+        verbose_name_plural = 'Типы Комнат'
 
 
-class Tourhotel(models.Model):
-    agreement = models.ForeignKey(Preliminaryagreement, models.DO_NOTHING, db_column='agreement')
+class TourHotel(models.Model):
+    agreement = models.ForeignKey(PreliminaryAgreement, models.DO_NOTHING, db_column='agreement')
     hotel = models.ForeignKey(Hotel, models.DO_NOTHING, db_column='hotel')
-    room_type = models.ForeignKey(Roomtype, models.DO_NOTHING, db_column='room_type')
-    feeding_type = models.ForeignKey(Feedingtype, models.DO_NOTHING, db_column='feeding_type')
+    room_type = models.ForeignKey(RoomType, models.DO_NOTHING, db_column='room_type')
+    feeding_type = models.ForeignKey(FeedingType, models.DO_NOTHING, db_column='feeding_type')
     order = models.DecimalField(max_digits=2, decimal_places=0)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
 
     class Meta:
-        managed = False
         db_table = 'TourHotel'
         unique_together = (('id', 'agreement', 'hotel'),)
 
@@ -264,6 +258,24 @@ class Tourist(models.Model):
     client = models.ForeignKey(Client, models.DO_NOTHING, db_column='client')
 
     class Meta:
-        managed = False
         db_table = 'Tourist'
         unique_together = (('contract', 'client'),)
+        verbose_name = 'Турист'
+        verbose_name_plural = 'Туристы'
+
+
+class BusinessProcess(models.Model):
+    id = models.IntegerField(primary_key=True)
+    agreement = models.ForeignKey('PreliminaryAgreement', models.DO_NOTHING, db_column='agreement')
+    status = models.ForeignKey('ProcessStatus', models.DO_NOTHING, db_column='status')
+    contract = models.ForeignKey('Contract', models.DO_NOTHING, db_column='contract', blank=True, null=True)
+    bill = models.ForeignKey(Bill, models.DO_NOTHING, db_column='bill', blank=True, null=True)
+    name = models.CharField(max_length=45)
+    creation_date = models.DateTimeField()
+    update_date = models.DateTimeField()
+
+    class Meta:
+        db_table = 'BusinessProcess'
+        unique_together = (('id', 'agreement', 'status'),)
+        verbose_name = 'Бизнес процесс'
+        verbose_name_plural = 'Бизнес процессы'
