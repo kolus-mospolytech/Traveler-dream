@@ -19,7 +19,6 @@ class Organization(models.Model):
 
 
 class Position(models.Model):
-    id = models.IntegerField(primary_key=True)
     group = models.OneToOneField(Group, on_delete=models.CASCADE, db_column='group', verbose_name='Группа')
     name = models.CharField('Название', unique=True, max_length=45)
     description = models.CharField('Описание', max_length=255, blank=True, null=True)
@@ -39,7 +38,6 @@ class Employee(models.Model):
         MALE = 'М'
         FEMALE = 'Ж'
 
-    id = models.IntegerField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, db_column='user', verbose_name='Пользователь')
     position = models.ForeignKey(Position, on_delete=models.CASCADE, db_column='position', verbose_name='Должность')
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='organization',
@@ -62,7 +60,6 @@ class Employee(models.Model):
 
 
 class ClientStatus(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField('Название', max_length=45)
     description = models.CharField('Описание', max_length=255, blank=True, null=True)
 
@@ -81,7 +78,6 @@ class Client(models.Model):
         MALE = 'М'
         FEMALE = 'Ж'
 
-    id = models.IntegerField(primary_key=True)
     status = models.ForeignKey(ClientStatus, on_delete=models.DO_NOTHING, db_column='status', verbose_name='Статус')
     name = models.CharField('Имя', max_length=45)
     fullname = models.CharField('ФИО', max_length=255)
@@ -99,7 +95,6 @@ class Client(models.Model):
 
 
 class InternationalPassport(models.Model):
-    id = models.IntegerField(primary_key=True)
     client = models.OneToOneField(Client, on_delete=models.CASCADE, db_column='client', verbose_name='Клиент')
     series = models.DecimalField('Серия', max_digits=2, decimal_places=0)
     number = models.DecimalField('Номер', max_digits=7, decimal_places=0)
@@ -119,7 +114,6 @@ class InternationalPassport(models.Model):
 
 
 class Country(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField('Название', max_length=45)
 
     def __str__(self):
@@ -133,7 +127,6 @@ class Country(models.Model):
 
 
 class City(models.Model):
-    id = models.IntegerField(primary_key=True)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, db_column='country', verbose_name='Страна')
     name = models.CharField('Название', max_length=45)
 
@@ -149,7 +142,6 @@ class City(models.Model):
 
 
 class HotelType(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField('Название', max_length=45)
     description = models.CharField('Описание', max_length=255, blank=True, null=True)
 
@@ -164,7 +156,6 @@ class HotelType(models.Model):
 
 
 class Hotel(models.Model):
-    id = models.IntegerField(primary_key=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, db_column='city', verbose_name='Город')
     type = models.ForeignKey(HotelType, on_delete=models.CASCADE, db_column='type', verbose_name='Тип отеля')
     name = models.CharField('Название', max_length=45)
@@ -182,7 +173,6 @@ class Hotel(models.Model):
 
 
 class FeedingType(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField('Название', max_length=45)
     description = models.CharField('Описание', max_length=255, blank=True, null=True)
 
@@ -197,7 +187,6 @@ class FeedingType(models.Model):
 
 
 class RoomType(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField('Название', max_length=45)
     description = models.CharField('Описание', max_length=255, blank=True, null=True)
 
@@ -212,7 +201,6 @@ class RoomType(models.Model):
 
 
 class PreliminaryAgreement(models.Model):
-    id = models.IntegerField(primary_key=True)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='organization',
                                      verbose_name='Организация')
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, db_column='employee', blank=True, null=True,
@@ -249,7 +237,6 @@ class TourHotel(models.Model):
 
 
 class Bill(models.Model):
-    id = models.IntegerField(primary_key=True)
     creation_date = models.DateTimeField('Дата выписки', auto_now_add=True)
     cost = models.DecimalField('Стоимость', max_digits=10, decimal_places=2)
     payed = models.IntegerField('Оплачено')
@@ -266,7 +253,6 @@ class Bill(models.Model):
 
 
 class Currency(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField('Наименование', max_length=45)
     code = models.CharField('Код', max_length=3)
     rate = models.DecimalField('Курс', max_digits=5, decimal_places=2)
@@ -283,7 +269,6 @@ class Currency(models.Model):
 
 
 class Contract(models.Model):
-    id = models.IntegerField(primary_key=True)
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE, db_column='currency', verbose_name='Валюта')
     creation_date = models.DateTimeField('Дата создания', auto_now_add=True)
     cost = models.DecimalField('Стоимость', max_digits=9, decimal_places=2)
@@ -311,7 +296,6 @@ class Tourist(models.Model):
 
 
 class ProcessStatus(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField('Название', max_length=45)
     description = models.CharField('Описание', max_length=255, blank=True, null=True)
 
@@ -326,7 +310,6 @@ class ProcessStatus(models.Model):
 
 
 class BusinessProcess(models.Model):
-    id = models.IntegerField(primary_key=True)
     agreement = models.ForeignKey(PreliminaryAgreement, on_delete=models.CASCADE, db_column='agreement',
                                   verbose_name="Предварительное соглашение")
     status = models.ForeignKey(ProcessStatus, models.DO_NOTHING, db_column='status', verbose_name="Статус")
