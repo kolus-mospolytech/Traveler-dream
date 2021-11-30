@@ -19,7 +19,6 @@ class Organization(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'Organization'
         verbose_name = 'Организация'
         verbose_name_plural = 'Организации'
 
@@ -34,7 +33,6 @@ class Organization(models.Model):
 #         return template.format(self)
 #
 #     class Meta:
-#         db_table = 'Position'
 #         verbose_name = 'Должность'
 #         verbose_name_plural = 'Должности'
 
@@ -88,7 +86,6 @@ class Employee(AbstractBaseUser, PermissionsMixin):
         return template.format(self)
 
     class Meta:
-        db_table = 'Employee'
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
 
@@ -102,7 +99,6 @@ class ClientStatus(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'ClientStatus'
         verbose_name = 'Статус Клиента'
         verbose_name_plural = 'Статусы Клиентов'
 
@@ -122,7 +118,6 @@ class Client(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'Client'
         unique_together = (('id', 'status'),)
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
@@ -143,7 +138,6 @@ class InternationalPassport(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'InternationalPassport'
         unique_together = (('id', 'client'),)
 
 
@@ -155,7 +149,6 @@ class Country(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'Country'
         verbose_name = 'Страна'
         verbose_name_plural = 'Страны'
 
@@ -169,7 +162,6 @@ class City(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'City'
         unique_together = (('id', 'country'),)
         verbose_name = 'Город'
         verbose_name_plural = 'Города'
@@ -184,7 +176,6 @@ class HotelType(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'HotelType'
         verbose_name = 'Тип Отеля'
         verbose_name_plural = 'Типы Отелей'
 
@@ -200,7 +191,6 @@ class Hotel(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'Hotel'
         unique_together = (('id', 'city'),)
         verbose_name = 'Отель'
         verbose_name_plural = 'Отели'
@@ -215,7 +205,6 @@ class FeedingType(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'FeedingType'
         verbose_name = 'Тип Питания'
         verbose_name_plural = 'Типы Питания'
 
@@ -229,7 +218,6 @@ class RoomType(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'RoomType'
         verbose_name = 'Тип Комнаты'
         verbose_name_plural = 'Типы Комнат'
 
@@ -249,7 +237,6 @@ class PreliminaryAgreement(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'PreliminaryAgreement'
         verbose_name = 'Предварительное Соглашение'
         verbose_name_plural = 'Предварительные Соглашения'
 
@@ -266,7 +253,6 @@ class TourHotel(models.Model):
     end_date = models.DateTimeField('Дата выселения')
 
     class Meta:
-        db_table = 'TourHotel'
         unique_together = (('id', 'agreement', 'hotel'),)
 
 
@@ -281,7 +267,6 @@ class Bill(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'Bill'
         verbose_name = 'Чек'
         verbose_name_plural = 'Чеки'
 
@@ -297,7 +282,6 @@ class Currency(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'Currency'
         verbose_name = 'Валюта'
         verbose_name_plural = 'Валюты'
 
@@ -312,7 +296,6 @@ class Contract(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'Contract'
         verbose_name = 'Договор'
         verbose_name_plural = 'Договоры'
 
@@ -323,7 +306,6 @@ class Tourist(models.Model):
     client = models.ForeignKey(Client, models.DO_NOTHING, db_column='client', verbose_name='Клиент')
 
     class Meta:
-        db_table = 'Tourist'
         unique_together = (('contract', 'client'),)
         verbose_name = 'Турист'
         verbose_name_plural = 'Туристы'
@@ -338,7 +320,6 @@ class ProcessStatus(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'ProcessStatus'
         verbose_name = 'Статус Процесса'
         verbose_name_plural = 'Статусы Процесса'
 
@@ -359,7 +340,6 @@ class BusinessProcess(models.Model):
         return template.format(self)
 
     class Meta:
-        db_table = 'BusinessProcess'
         unique_together = (('id', 'agreement', 'status'),)
         verbose_name = 'Бизнес процесс'
         verbose_name_plural = 'Бизнес процессы'
