@@ -1,5 +1,11 @@
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import User, Group
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
+from .managers import CustomUserManager
 
 
 class Organization(models.Model):
@@ -18,35 +24,64 @@ class Organization(models.Model):
         verbose_name_plural = 'Организации'
 
 
-class Position(models.Model):
-    group = models.OneToOneField(Group, on_delete=models.CASCADE, db_column='group', verbose_name='Группа')
-    name = models.CharField('Название', unique=True, max_length=45)
-    description = models.CharField('Описание', max_length=255, blank=True, null=True)
+# class Position(models.Model):
+#     group = models.OneToOneField(Group, on_delete=models.CASCADE, db_column='group', verbose_name='Группа')
+#     name = models.CharField('Название', unique=True, max_length=45)
+#     description = models.CharField('Описание', max_length=255, blank=True, null=True)
+#
+#     def __str__(self):
+#         template = '{0.name}'
+#         return template.format(self)
+#
+#     class Meta:
+#         db_table = 'Position'
+#         verbose_name = 'Должность'
+#         verbose_name_plural = 'Должности'
 
-    def __str__(self):
-        template = '{0.name}'
-        return template.format(self)
 
-    class Meta:
-        db_table = 'Position'
-        verbose_name = 'Должность'
-        verbose_name_plural = 'Должности'
-
-
-class Employee(models.Model):
+class Employee(AbstractBaseUser, PermissionsMixin):
     class Sex(models.TextChoices):
         MALE = 'М'
         FEMALE = 'Ж'
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, db_column='user', verbose_name='Пользователь')
-    position = models.ForeignKey(Position, on_delete=models.CASCADE, db_column='position', verbose_name='Должность')
+    username_validator = UnicodeUsernameValidator()
+
+    username = models.CharField(
+        _('username'),
+        max_length=150,
+        unique=True,
+        help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        validators=[username_validator],
+        error_messages={
+            'unique': _("A user with that username already exists."),
+        },
+    )
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='organization',
-                                     verbose_name='Организация')
-    name = models.CharField('Имя', max_length=45)
-    full_name = models.CharField('ФИО', max_length=255)
-    sex = models.CharField('Пол', max_length=1, choices=Sex.choices)
-    birth_date = models.DateField('Дата рождения', )
+                                     verbose_name='Организация', blank=True, null=True)
+    name = models.CharField('Имя', max_length=45, blank=True)
+    full_name = models.CharField('ФИО', max_length=255, blank=True)
+    sex = models.CharField('Пол', max_length=1, choices=Sex.choices, blank=True)
+    birth_date = models.DateField('Дата рождения', blank=True, default=timezone.now)
     photo = models.ImageField('Фото', upload_to='avatars', blank=True, null=True)
+    is_staff = models.BooleanField(
+        _('staff status'),
+        default=False,
+        help_text=_('Designates whether the user can log into this admin site.'),
+    )
+    is_active = models.BooleanField(
+        _('active'),
+        default=True,
+        help_text=_(
+            'Designates whether this user should be treated as active. '
+            'Unselect this instead of deleting accounts.'
+        ),
+    )
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         template = '{0.name}'
@@ -54,7 +89,6 @@ class Employee(models.Model):
 
     class Meta:
         db_table = 'Employee'
-        unique_together = (('id', 'position', 'organization'),)
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
 
