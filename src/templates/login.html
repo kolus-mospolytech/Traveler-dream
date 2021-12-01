@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="block_main block_register">
+    <div class="register">
+        <h3>Войти в систему</h3>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label>
+                <input type="text" name="username" placeholder="логин">
+            </label>
+            <label>
+                <input type="password" name="password" placeholder="пароль">
+            </label>
+            {% for message in messages %}
+                <span id="messages">{{ message }}</span>
+            {% endfor %}
+            <input type="submit" value="Войти">
+        </form>
+    </div>
+</div>
+{% endblock %}

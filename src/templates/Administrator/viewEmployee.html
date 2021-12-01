@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="block_main">
+        <div class="block_info employee_list">
+            <h4>Список сотрудников</h4>
+            <div class="li li_hidden">
+                {% for message in messages %}
+                    <span id="messages">{{ message }}</span>
+                {% endfor %}
+            </div>
+            <div class="table">
+                <div class="tr">
+                    <div class="td">ФИО</div>
+                </div>
+                {% for item in users_list %}
+                    <div class="tr">
+                        <div class="td">{{ item.username }}</div>
+                        <div class="td td-deleted">
+                            <div class="li"><a href={% url 'editEmployee' item.id %}>Изменить</a></div>
+                            <div class="li"><a href={% url 'deletedEmployee' item.id %}>Удалить</a></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="button">
+                <a href="{% url 'addEmployee' %}"><span>Добавить сотрудника</span></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

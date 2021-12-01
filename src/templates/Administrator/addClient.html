@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="block_main">
+        <div class="block_info client_list">
+            <h4>Добавить клиента</h4>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="ul ul-info">
+                    <h4>Основые данные</h4>
+                    <div class="li">
+                        <label>
+                            <span>Имя</span>
+                            {{ form.name }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>ФИО</span>
+                            {{ form.fullname }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Пол</span>
+                            {{ form.sex }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Статус</span>
+                            {{ form.status }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <input id="add_employee_id" type="submit">
+                        </label>
+                    </div>
+                    <div class="li li_hidden">
+                        {% for message in messages %}
+                            <span id="messages">{{ message }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </form>
+            <div class="ul ul-button">
+                <label class="button button_confirm" for="add_employee_id">Далее</label>
+                <a href="{% url 'home' %}">
+                    <div class="button">Выйти</div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

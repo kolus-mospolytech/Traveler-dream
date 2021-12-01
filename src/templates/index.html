@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+   {% include 'navbar.html' %}
+    <div class="block_main">
+        <div class="block_info main">
+            <div class="ul">
+                <h4>Для администратора</h4>
+                <div class="li"><a href={% url 'viewEmployee'%}>Список сотрудников</a></div>
+                <div class="li"><a href={% url 'addEmployee'%}>Добавить сотрудника</a></div>
+                <div class="li"><a href={% url 'addClient'%}>Добавить клиента</a></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="block_main">
+        <div class="block_info employee_card">
+            <h4>Добавить сотрудника</h4>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="ul ul-info">
+                    <div class="li">
+                        <label>
+                            <span>Логин</span>
+                            {{ form.username }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Пароль</span>
+                            {{ form.password }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Организация</span>
+                            {{ form.organization }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Имя</span>
+                            {{ form.name }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>ФИО</span>
+                            {{ form.full_name }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Дата Рождения</span>
+                            {{ form.birth_date }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Пол</span>
+                            {{ form.sex }}
+                        </label>
+                    </div>
+                    <div class="li">
+
+                    </div>
+                    <div class="li">
+                        <label>
+                            {{ form.is_staff }}
+                            {{ form.is_active }}
+                            {{ form.is_superuser }}
+                            {{ form.date_joined }}
+                            <input id="add_employee_id" type="submit">
+                        </label>
+                    </div>
+                    <div class="li li_hidden">
+                        {% for message in messages %}
+                            <span id="messages">{{ message }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="ul">
+                    <h5>Фото</h5>
+                    <div class="photo"></div>
+                    <label>
+                        {{ form.photo }}
+                    </label>
+                </div>
+            </form>
+            <div class="ul ul-button">
+                <label class="button button_confirm" for="add_employee_id">Записать</label>
+                <a href="{% url 'home' %}"><div class="button">Выйти</div></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
