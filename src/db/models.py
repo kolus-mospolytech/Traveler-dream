@@ -23,20 +23,6 @@ class Organization(models.Model):
         verbose_name_plural = 'Организации'
 
 
-# class Position(models.Model):
-#     group = models.OneToOneField(Group, on_delete=models.CASCADE, db_column='group', verbose_name='Группа')
-#     name = models.CharField('Название', unique=True, max_length=45)
-#     description = models.CharField('Описание', max_length=255, blank=True, null=True)
-#
-#     def __str__(self):
-#         template = '{0.name}'
-#         return template.format(self)
-#
-#     class Meta:
-#         verbose_name = 'Должность'
-#         verbose_name_plural = 'Должности'
-
-
 class Employee(AbstractBaseUser, PermissionsMixin):
     class Sex(models.TextChoices):
         MALE = 'М', 'Мужчина'
@@ -55,10 +41,10 @@ class Employee(AbstractBaseUser, PermissionsMixin):
         },
     )
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='organization',
-                                     verbose_name='Организация', blank=False, default=1)
+                                     verbose_name='Организация', blank=True, null=True)
     name = models.CharField('Имя', max_length=45, blank=True)
     full_name = models.CharField('ФИО', max_length=255, blank=True)
-    sex = models.CharField('Пол', max_length=1, choices=Sex.choices, blank=False, default='Unspecified')
+    sex = models.CharField('Пол', max_length=1, choices=Sex.choices, blank=True)
     birth_date = models.DateField('Дата рождения', blank=True, default=timezone.now)
     photo = models.ImageField('Фото', upload_to='avatars', blank=True, null=True)
     is_staff = models.BooleanField(
@@ -108,11 +94,10 @@ class Client(models.Model):
         MALE = 'М', 'Мужчина'
         FEMALE = 'Ж', 'Женщина'
 
-    status = models.ForeignKey(ClientStatus, on_delete=models.DO_NOTHING, db_column='status', verbose_name='Статус',
-                               blank=False, default='Unspecified')
+    status = models.ForeignKey(ClientStatus, on_delete=models.DO_NOTHING, db_column='status', verbose_name='Статус')
     name = models.CharField('Имя', max_length=45)
     fullname = models.CharField('ФИО', max_length=255)
-    sex = models.CharField('Пол', max_length=1, choices=Sex.choices, blank=False, default='Unspecified')
+    sex = models.CharField('Пол', max_length=1, choices=Sex.choices)
 
     def __str__(self):
         template = '{0.name}'
@@ -155,8 +140,7 @@ class Country(models.Model):
 
 
 class City(models.Model):
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, db_column='country', verbose_name='Страна',
-                                blank=False, default='Unspecified')
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, db_column='country', verbose_name='Страна')
     name = models.CharField('Название', max_length=45)
 
     def __str__(self):
@@ -183,10 +167,8 @@ class HotelType(models.Model):
 
 
 class Hotel(models.Model):
-    city = models.ForeignKey(City, on_delete=models.CASCADE, db_column='city', verbose_name='Город', blank=False,
-                             default='Unspecified')
-    type = models.ForeignKey(HotelType, on_delete=models.CASCADE, db_column='type', verbose_name='Тип отеля',
-                             blank=False, default='Unspecified')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, db_column='city', verbose_name='Город')
+    type = models.ForeignKey(HotelType, on_delete=models.CASCADE, db_column='type', verbose_name='Тип отеля')
     name = models.CharField('Название', max_length=45)
     address = models.CharField('Адрес', max_length=255)
 
@@ -228,11 +210,10 @@ class RoomType(models.Model):
 
 class PreliminaryAgreement(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='organization',
-                                     verbose_name='Организация', blank=False, default='Unspecified')
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, db_column='employee',
-                                 verbose_name='Агент', blank=False, default='Unspecified')
-    client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, db_column='client', verbose_name='Клиент',
-                               blank=False, default='Unspecified')
+                                     verbose_name='Организация')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, db_column='employee', blank=True, null=True,
+                                 verbose_name='Агент')
+    client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, db_column='client', verbose_name='Клиент')
     creation_date = models.DateTimeField('Дата заключения', auto_now_add=True)
     trip_start = models.DateField('Дата начала поездки')
     trip_end = models.DateField('Дата конца поездки')
@@ -249,12 +230,10 @@ class PreliminaryAgreement(models.Model):
 class TourHotel(models.Model):
     agreement = models.ForeignKey(PreliminaryAgreement, on_delete=models.CASCADE, db_column='agreement',
                                   verbose_name='Предварительно соглашение')
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, db_column='hotel', verbose_name='Отель',
-                              blank=False, default='Unspecified')
-    room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE, db_column='room_type', verbose_name='Тип комнаты',
-                                  blank=False, default='Unspecified')
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, db_column='hotel', verbose_name='Отель')
+    room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE, db_column='room_type', verbose_name='Тип комнаты')
     feeding_type = models.ForeignKey(FeedingType, on_delete=models.CASCADE, db_column='feeding_type',
-                                     verbose_name='Тип питания', blank=False, default='Unspecified')
+                                     verbose_name='Тип питания')
     order = models.DecimalField('Порядок', max_digits=2, decimal_places=0)
     start_date = models.DateTimeField('Дата заселения')
     end_date = models.DateTimeField('Дата выселения')
@@ -294,8 +273,7 @@ class Currency(models.Model):
 
 
 class Contract(models.Model):
-    currency = models.ForeignKey(Currency, on_delete=models.CASCADE, db_column='currency', verbose_name='Валюта',
-                                 blank=False, default='Unspecified')
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE, db_column='currency', verbose_name='Валюта')
     creation_date = models.DateTimeField('Дата создания', auto_now_add=True)
     cost = models.DecimalField('Стоимость', max_digits=9, decimal_places=2)
 
@@ -335,8 +313,7 @@ class ProcessStatus(models.Model):
 class BusinessProcess(models.Model):
     agreement = models.ForeignKey(PreliminaryAgreement, on_delete=models.CASCADE, db_column='agreement',
                                   verbose_name="Предварительное соглашение")
-    status = models.ForeignKey(ProcessStatus, models.DO_NOTHING, db_column='status', verbose_name="Статус",
-                               blank=False, default='Unspecified')
+    status = models.ForeignKey(ProcessStatus, models.DO_NOTHING, db_column='status', verbose_name="Статус")
     contract = models.ForeignKey(Contract, models.DO_NOTHING, db_column='contract', blank=True, null=True,
                                  verbose_name="Договор")
     bill = models.ForeignKey(Bill, models.DO_NOTHING, db_column='bill', blank=True, null=True, verbose_name="Чек")
