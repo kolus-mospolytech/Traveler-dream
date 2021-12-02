@@ -23,15 +23,17 @@ help: ## This is help.
 .PHONY: install
 install: build-dev up-dev ## Install project - all you need for quick start
 
-.PHONY: build-dev up-dev stop-dev down-dev clear-dev
+.PHONY: build-dev up-dev stop-dev restart-dev down-dev clear-dev
 
-build-dev up-dev stop-dev down-dev clear-dev: COMPOSE_FILE=./docker-compose.yml
+build-dev up-dev stop-dev restart-dev down-dev clear-dev: COMPOSE_FILE=./docker-compose.yml
 build-dev: ## Build current version images for dev
 	VERSION=$(VERSION) docker-compose -f $(COMPOSE_FILE) build --pull $(SERVICE)
 up-dev: ## Up current version containers for dev
 	VERSION=$(VERSION) docker-compose -f $(COMPOSE_FILE) up -d
 stop-dev: ## Stop current version containers for dev
 	VERSION=$(VERSION) docker-compose -f $(COMPOSE_FILE) stop
+restart-dev: ## Restart containers
+	VERSION=$(VERSION) docker-compose -f $(COMPOSE_FILE) restart
 down-dev: ## Down current version containers for dev and remove network
 	VERSION=$(VERSION) docker-compose -f $(COMPOSE_FILE) down
 clear-dev: ## Stop and clear all current version containers for dev
