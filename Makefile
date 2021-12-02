@@ -36,3 +36,15 @@ down-dev: ## Down current version containers for dev and remove network
 	VERSION=$(VERSION) docker-compose -f $(COMPOSE_FILE) down
 clear-dev: ## Stop and clear all current version containers for dev
 	VERSION=$(VERSION) docker-compose -f $(COMPOSE_FILE) rm -s -f -v
+
+.PHONY: bash-web makemig-web mig-web stasic-web
+bash-web: ## Open bash in web
+	docker exec -it $(WEB_SERVER_NAME) /bin/bash
+makemig-web: ## Django make migrations in web
+	docker exec -it $(WEB_SERVER_NAME) python manage.py makemigrations
+mig-web: ## Django migrate in web
+	docker exec -it $(WEB_SERVER_NAME) python manage.py migrate
+stasic-web: ## Django collectstatic in web
+	docker exec -it $(WEB_SERVER_NAME) python manage.py collectstatic
+
+
