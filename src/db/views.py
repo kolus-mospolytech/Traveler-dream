@@ -1,13 +1,12 @@
-import logging
-
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
 
 from .models import RoomType, Client, InternationalPassport
-from .forms import CreateUserForm, CreateEmployee, EditEmployee, AddClient, AddInternationalPassport
+from .forms import CreateEmployee, EditEmployee, AddClient, AddInternationalPassport, EditClient, \
+    EditInternationalPassport
 
 
 @login_required(login_url='login')
@@ -56,12 +55,8 @@ def login_page(request):
 
 @login_required(login_url='login')
 def view_employee(request):
-    # group_list = request.user.groups.values()
-    # name = request.user.objects.values()
     users_list = get_user_model().objects.values()
     context = {
-        # 'group_list': group_list,
-        # 'name': name,
         'users_list': users_list,
     }
     return render(request, 'Administrator/viewEmployee.html', context)
@@ -70,18 +65,20 @@ def view_employee(request):
 @login_required(login_url='login')
 def add_employee(request):
     form = CreateEmployee()
+    position = request.POST.get('position')
     if request.method == 'POST':
         form = CreateEmployee(request.POST, request.FILES)
         if form.is_valid():
             new_user = form.save(commit=False)
-            # new_user.photo = request.FILES['photo']
             new_user.save()
+            new_user.groups.add(Group.objects.get(id=position))
             messages.info(request, 'Запись успешна добавлена')
         else:
             messages.info(request, form.errors)
 
     context = {
         'form': form,
+        'position': position,
     }
     return render(request, 'Administrator/addEmployee.html', context)
 
@@ -89,20 +86,25 @@ def add_employee(request):
 @login_required(login_url='login')
 def edit_employee(request, pk):
     user = get_user_model().objects.get(id=pk)
+    position = str(list(user.groups.all())[0]).lower()
     form = EditEmployee(instance=user)
-
     if request.method == 'POST':
         form = EditEmployee(request.POST, request.FILES, instance=user)
         if form.is_valid():
+            new_position = request.POST.get('position')
             new_user = form.save(commit=False)
             new_user.save()
+            new_user.groups.clear()
+            new_user.groups.add(Group.objects.get(id=new_position))
             messages.info(request, 'Запись успешна сохранена')
+            return redirect('editEmployee', pk)
         else:
             messages.error(request, form.errors)
 
     context = {
         'user': user,
-        'form': form
+        'form': form,
+        'position': position,
     }
     return render(request, 'Administrator/editEmployee.html', context)
 
@@ -125,21 +127,92 @@ def delete_employee(request, pk):
 
 
 @login_required(login_url='login')
-def add_client(request):
-    form = AddClient()
-    if request.method == 'POST':
-        form = AddClient(request.POST)
-        if form.is_valid():
-            client = form.save(commit=False)
-            client.save()
-            messages.info(request, "Клиент успешно создан")
-            return redirect('addPassport', client.id)
-        else:
-            messages.error(request, form.errors)
+def view_client(request):
+    client_list = Client.objects.all()
+    passport_list = InternationalPassport.objects.all()
+
     context = {
-        'form': form
+        'client_list': client_list,
+        'passport_list': passport_list,
+    }
+    return render(request, 'Administrator/viewClient.html', context)
+
+
+@login_required(login_url='login')
+def add_client(request):
+    form_client = AddClient()
+    form_passport = AddInternationalPassport()
+
+    if request.method == 'POST':
+        form_client = AddClient(request.POST)
+        form_passport = AddInternationalPassport(request.POST)
+
+        if form_client.is_valid():
+            client = form_client.save(commit=False)
+            client.save()
+            if form_passport.is_valid():
+                passport = form_passport.save(commit=False)
+                passport.client = Client.objects.get(id=client.id)
+                passport.save()
+                messages.info(request, "Клиент успешно создан")
+                return redirect('addClient')
+            else:
+                client.delete()
+                messages.error(request, form_passport.errors)
+        else:
+            messages.error(request, form_client.errors)
+    context = {
+        'form_client': form_client,
+        'form_passport': form_passport,
+
     }
     return render(request, 'Administrator/addClient.html', context)
+
+
+@login_required(login_url='login')
+def edit_client(request, pk):
+    client = Client.objects.get(id=pk)
+    passport = InternationalPassport.objects.get(client_id=pk)
+    form_client = EditClient(instance=client)
+    form_passport = EditInternationalPassport(instance=passport)
+
+    if request.method == 'POST':
+        form_client = EditClient(request.POST, instance=client)
+        form_passport = EditInternationalPassport(request.POST, instance=passport)
+
+        if form_client.is_valid() & form_passport.is_valid():
+            new_client = form_client.save(commit=False)
+            new_client.save()
+            new_passport = form_passport.save(commit=False)
+            new_passport.save()
+            messages.info(request, 'Запись успешна сохранена')
+        else:
+            messages.error(request, form_client.errors)
+            messages.error(request, form_passport.errors)
+
+    context = {
+        'client': client,
+        'passport': passport,
+        'form_client': form_client,
+        'form_passport': form_passport,
+    }
+    return render(request, 'Administrator/editClient.html', context)
+
+
+@login_required(login_url='login')
+def delete_client(request, pk):
+    client = Client.objects.get(id=pk)
+    passport = InternationalPassport.objects.get(client_id=pk)
+
+    if request.method == 'POST':
+        passport.delete()
+        client.delete()
+        messages.info(request, 'Клиент успешно удален')
+        return redirect('viewClient')
+    context = {
+        'client': client,
+    }
+    return render(request, 'Administrator/deleteClient.html', context)
 
 
 @login_required(login_url='login')
