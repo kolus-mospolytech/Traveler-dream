@@ -29,14 +29,25 @@
                     </div>
                     <div class="li">
                         <label>
+                            <span>Пол</span>
+                            {{ form.sex }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
                             <span>Дата рождения</span>
                             {{ form.birth_date }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Пол</span>
-                            {{ form.sex }}
+                            <span>Должность</span>
+                            <select name="position" required>
+                                <option value="1" {% if position == "администратор" %} selected {% endif %}>Администратор</option>
+                                <option value="2" {% if position == "менеджер" %} selected {% endif %}>Менеджер</option>
+                                <option value="3" {% if position == "бухгалтер" %} selected {% endif %}>Бухгалтер</option>
+                                <option value="4" {% if position == "агент" %} selected {% endif %}>Агент</option>
+                            </select>
                         </label>
                     </div>
                     <div class="li">

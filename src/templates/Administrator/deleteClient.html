@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="block_main">
+        <div class="block_info employee_card">
+            <h4>Вы уверены что хотите удалить клиента: {{ client.name }}</h4>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="li">
+                    <label>
+                        <input id="add_employee_id" type="submit">
+                    </label>
+                </div>
+            </form>
+            <div class="ul ul-button">
+                <label class="button button_confirm" for="add_employee_id">Да, я хочу удалить</label>
+                <a href="{% url 'viewClient' %}">
+                    <div class="button">Нет</div>
+                </a>
+            </div>
+            <div class="li li_hidden">
+                {% for message in messages %}
+                    <span id="messages">{{ message }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -13,11 +13,11 @@
             </div>
             <div class="table">
                 <div class="tr">
-                    <div class="td">ФИО</div>
+                    <div class="td">Сотрудник</div>
                 </div>
                 {% for item in users_list %}
                     <div class="tr">
-                        <div class="td">{{ item.username }}</div>
+                        <div class="td">{{ item.name }}</div>
                         <div class="td td-deleted">
                             <div class="li"><a href={% url 'editEmployee' item.id %}>Изменить</a></div>
                             <div class="li"><a href={% url 'deletedEmployee' item.id %}>Удалить</a></div>
@@ -25,8 +25,13 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="button">
-                <a href="{% url 'addEmployee' %}"><span>Добавить сотрудника</span></a>
+            <div class="ul ul-button">
+                <a href="{% url 'addEmployee' %}">
+                    <div class="button button_confirm">Добавить сотрудника</div>
+                </a>
+                <a href="{% url 'home' %}">
+                    <div class="button">Выйти</div>
+                </a>
             </div>
         </div>
     </div>

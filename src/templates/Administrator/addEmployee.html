@@ -52,7 +52,15 @@
                         </label>
                     </div>
                     <div class="li">
-
+                        <label>
+                            <span>Должность</span>
+                            <select name="position" required>
+                                <option value="1">Администратор</option>
+                                <option value="2">Менеджер</option>
+                                <option value="3">Бухгалтер</option>
+                                <option value="4">Агент</option>
+                            </select>
+                        </label>
                     </div>
                     <div class="li">
                         <label>
@@ -79,7 +87,9 @@
             </form>
             <div class="ul ul-button">
                 <label class="button button_confirm" for="add_employee_id">Записать</label>
-                <a href="{% url 'home' %}"><div class="button">Выйти</div></a>
+                <a href="{% url 'home' %}">
+                    <div class="button">Выйти</div>
+                </a>
             </div>
         </div>
     </div>
