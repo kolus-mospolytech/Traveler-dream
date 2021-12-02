@@ -26,8 +26,8 @@ INSERT INTO `auth_group`
 VALUES (1, 'Manager'),
        (2, 'Accountant'),
        (3, 'Administrator'),
-       (4, 'Agent'),
-    /*!40000 ALTER TABLE `auth_group`
+       (4, 'Agent');
+/*!40000 ALTER TABLE `auth_group`
     ENABLE KEYS */;
 UNLOCK TABLES;
 
