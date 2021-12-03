@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.core.validators import RegexValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -11,7 +12,7 @@ from .managers import CustomUserManager
 class Organization(models.Model):
     name = models.CharField('Название', unique=True, max_length=45)
     address = models.CharField('Адрес', max_length=255)
-    phone = models.CharField('Телефон', max_length=45)
+    phone = models.CharField('Телефон', max_length=20, blank=True, null=True)
     mail = models.CharField('E-Mail', max_length=45, blank=True, null=True)
 
     def __str__(self):
@@ -30,6 +31,10 @@ class Employee(AbstractBaseUser, PermissionsMixin):
 
     username_validator = UnicodeUsernameValidator()
 
+    name_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я]*$', 'Вы можете использовать только буквы')
+
+    fullname_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я ]*$', 'Вы можете использовать только буквы')
+
     username = models.CharField(
         _('username'),
         max_length=150,
@@ -42,9 +47,9 @@ class Employee(AbstractBaseUser, PermissionsMixin):
     )
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='organization',
                                      verbose_name='Организация', blank=True, null=True)
-    name = models.CharField('Имя', max_length=45, blank=True)
-    full_name = models.CharField('ФИО', max_length=255, blank=True)
-    sex = models.CharField('Пол', max_length=1, choices=Sex.choices, blank=True)
+    name = models.CharField('Имя', max_length=45, validators=[name_validator], blank=True)
+    full_name = models.CharField('ФИО', max_length=255, validators=[fullname_validator], blank=True)
+    sex = models.CharField('Пол', max_length=1, choices=Sex.choices, blank=False)
     birth_date = models.DateField('Дата рождения', blank=True, default=timezone.now)
     photo = models.ImageField('Фото', upload_to='avatars', blank=True, null=True)
     is_staff = models.BooleanField(
@@ -94,10 +99,11 @@ class Client(models.Model):
         MALE = 'М', 'Мужчина'
         FEMALE = 'Ж', 'Женщина'
 
-    status = models.ForeignKey(ClientStatus, on_delete=models.DO_NOTHING, db_column='status', verbose_name='Статус')
+    status = models.ForeignKey(ClientStatus, on_delete=models.DO_NOTHING, db_column='status', verbose_name='Статус',
+                               blank=False)
     name = models.CharField('Имя', max_length=45)
     fullname = models.CharField('ФИО', max_length=255)
-    sex = models.CharField('Пол', max_length=1, choices=Sex.choices)
+    sex = models.CharField('Пол', max_length=1, choices=Sex.choices, blank=False)
 
     def __str__(self):
         template = '{0.name}'

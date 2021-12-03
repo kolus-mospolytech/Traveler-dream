@@ -55,7 +55,7 @@ def login_page(request):
 
 @login_required(login_url='login')
 def view_employee(request):
-    users_list = get_user_model().objects.values()
+    users_list = get_user_model().objects.all()
     context = {
         'users_list': users_list,
     }
@@ -86,7 +86,10 @@ def add_employee(request):
 @login_required(login_url='login')
 def edit_employee(request, pk):
     user = get_user_model().objects.get(id=pk)
-    position = str(list(user.groups.all())[0]).lower()
+    if user.groups.all().count() != 0:
+        position = str(list(user.groups.all())[0]).lower()
+    else:
+        position = 'Agent'
     form = EditEmployee(instance=user)
     if request.method == 'POST':
         form = EditEmployee(request.POST, request.FILES, instance=user)

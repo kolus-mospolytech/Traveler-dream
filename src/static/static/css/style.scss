@@ -8,7 +8,7 @@ html, body, h1, h2, h3, h4, h5, h6, a {
 
 header, div, footer {
   display: flex;
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Verdana', sans-serif;
 }
 
 a {
@@ -29,7 +29,7 @@ h2 {
 
 h3 {
   font-weight: normal;
-  font-size: 24px;
+  font-size: 28px;
 }
 
 h4 {
@@ -140,10 +140,6 @@ input[type="file"] {
       &:last-of-type{
         min-width: 180px;
       }
-    }
-
-    .td-start{
-      width: 400px;
     }
 
     .td-deleted {
@@ -321,28 +317,20 @@ input[type="file"] {
     .tr {
       .td{
         &:first-of-type{
-          width: 50%;
+          width: 20%;
         }
 
         &:nth-of-type(3){
-          width: 50%;
+          width: 40%;
         }
 
         &:nth-of-type(4){
           width: 40%;
         }
-
-        &:nth-of-type(5){
-          width: 60%;
-        }
-
-        &:nth-of-type(n+2){
-          justify-content: center;
-        }
-
-        &:last-of-type{
-          min-width: 180px;
-        }
+        //
+        //&:nth-of-type(5){
+        //  width: 60%;
+        //}
       }
     }
   }
@@ -464,14 +452,6 @@ form {
 
         &:nth-of-type(4){
           width: 30%;
-        }
-
-        &:nth-of-type(n+2){
-          justify-content: center;
-        }
-
-        &:last-of-type{
-          min-width: 180px;
         }
       }
     }

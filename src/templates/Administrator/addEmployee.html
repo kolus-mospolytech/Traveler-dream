@@ -55,10 +55,10 @@
                         <label>
                             <span>Должность</span>
                             <select name="position" required>
-                                <option value="1">Администратор</option>
-                                <option value="2">Менеджер</option>
-                                <option value="3">Бухгалтер</option>
-                                <option value="4">Агент</option>
+                                <option value="3" {% if position == "3" %} selected {% endif %}>Администратор</option>
+                                <option value="1" {% if position == "1" %} selected {% endif %}>Менеджер</option>
+                                <option value="2" {% if position == "2" %} selected {% endif %}>Бухгалтер</option>
+                                <option value="4" {% if position == "4" %} selected {% endif %}>Агент</option>
                             </select>
                         </label>
                     </div>
