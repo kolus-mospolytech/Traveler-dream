@@ -77,6 +77,9 @@ class Employee(AbstractBaseUser, PermissionsMixin):
         return template.format(self)
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['full_name', 'birth_date'], name='unique_employees')
+        ]
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
 
