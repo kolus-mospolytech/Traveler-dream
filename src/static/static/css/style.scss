@@ -133,11 +133,12 @@ input[type="file"] {
       text-align: center;
       align-items: center;
 
-      &:nth-of-type(n+2){
-        justify-content: center;
-      }
+      //&:nth-of-type(n+2){
+      //  justify-content: center;
+      //}
 
       &:last-of-type{
+        justify-content: center;
         min-width: 180px;
       }
     }
@@ -316,17 +317,19 @@ input[type="file"] {
   .table {
     .tr {
       .td{
+        width: 50%;
+
         &:first-of-type{
-          width: 20%;
+          width: 100%;
         }
 
-        &:nth-of-type(3){
-          width: 40%;
+        &:nth-of-type(2){
+          width: 60%;
         }
-
-        &:nth-of-type(4){
-          width: 40%;
-        }
+        //
+        //&:nth-of-type(4){
+        //  width: 40%;
+        //}
         //
         //&:nth-of-type(5){
         //  width: 60%;
@@ -442,17 +445,23 @@ form {
   .table {
     .tr {
       .td{
+        width: 50%;
+
         &:first-of-type{
-          width: 50%;
+          width: 100%;
         }
 
-        &:nth-of-type(3){
-          width: 60%;
-        }
-
-        &:nth-of-type(4){
-          width: 30%;
-        }
+        //&:nth-of-type(2){
+        //  width: 30%;
+        //}
+        //
+        //&:nth-of-type(3){
+        //  width: 30%;
+        //}
+        //
+        //&:nth-of-type(4){
+        //  width: 60%;
+        //}
       }
     }
   }

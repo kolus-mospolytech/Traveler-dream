@@ -7,10 +7,10 @@
     <div class="block_main">
         <div class="block_info main">
             <div class="ul">
-                {% if user|has_group:'Administrator' %}
+                {% if logger_in_user|has_group:'Administrator' %}
                     {% include 'adminLinks.html' %}
 
-                {% elif user|has_group:'Manager' %}
+                {% elif logger_in_user|has_group:'Manager' %}
                     {% include 'managerLinks.html' %}
 
 {#                {% elif user|has_group:'Agent' %}#}

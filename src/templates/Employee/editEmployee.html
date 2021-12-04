@@ -11,37 +11,37 @@
                 <div class="ul ul-info">
                     <div class="li">
                         <label>
-                            <span>Имя</span>
+                            <span>Имя:</span>
                             {{ form.name }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>ФИО</span>
+                            <span>ФИО:</span>
                             {{ form.full_name }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Организация</span>
+                            <span>Организация:</span>
                             {{ form.organization }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Пол</span>
+                            <span>Пол:</span>
                             {{ form.sex }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Дата рождения</span>
+                            <span>Дата рождения:</span>
                             {{ form.birth_date }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Должность</span>
+                            <span>Должность:</span>
                             <select name="position" required>
                                 <option value="3" {% if position == "администратор" %} selected {% endif %}>
                                     Администратор
@@ -71,9 +71,13 @@
                 <div class="ul ul-photo">
                     {% if user.photo.url != null %}
                         <h5>Фото сотрудника</h5>
-                        <a href="{{ user.photo.url }}" target="_blank">
+                        {% if user.photo %}
+                            <a href="{{ user.photo.url }}" target="_blank">
+                                <img src="{{ user.photo.url }}" alt="user avatar">
+                            </a>
+                        {% else %}
                             <img src="{{ user.photo.url }}" alt="user avatar">
-                        </a>
+                        {% endif %}
                     {% else %}
                         <h5>Добавить фото</h5>
                     {% endif %}
@@ -86,9 +90,11 @@
             <div class="ul ul-button">
                 <label class="button button_confirm" for="save_and_exit_id">Записать и выйти</label>
                 <label class="button button_confirm" for="save_id">Записать</label>
-                <a href="{{ user.photo.url }}" download="{{ user.photo.filename }}">
-                    <div class="button button_confirm">Скачать фотографию</div>
-                </a>
+                {% if user.photo %}
+                    <a href="{{ user.photo.url }}" download="{{ user.photo.filename }}">
+                        <div class="button button_confirm">Скачать изображение</div>
+                    </a>
+                {% endif %}
                 <a href="{% url 'viewEmployee' %}">
                     <div class="button">Выйти</div>
                 </a>

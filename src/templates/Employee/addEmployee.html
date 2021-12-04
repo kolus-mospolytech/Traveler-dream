@@ -11,49 +11,49 @@
                 <div class="ul ul-info">
                     <div class="li">
                         <label>
-                            <span>Логин</span>
+                            <span>Логин:</span>
                             {{ form.username }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Пароль</span>
+                            <span>Пароль:</span>
                             {{ form.password }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Организация</span>
+                            <span>Организация:</span>
                             {{ form.organization }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Имя</span>
+                            <span>Имя:</span>
                             {{ form.name }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>ФИО</span>
+                            <span>ФИО:</span>
                             {{ form.full_name }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Дата Рождения</span>
+                            <span>Дата рождения:</span>
                             {{ form.birth_date }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Пол</span>
+                            <span>Пол:</span>
                             {{ form.sex }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Должность</span>
+                            <span>Должность:</span>
                             <select name="position" required>
                                 <option value="3" {% if position == "3" %} selected {% endif %}>Администратор</option>
                                 <option value="1" {% if position == "1" %} selected {% endif %}>Менеджер</option>
@@ -87,10 +87,10 @@
                 </div>
             </form>
             <div class="ul ul-button">
-                <label class="button button_confirm" for="save_and_exit_id">Записать и выйти</label>
-                <label class="button button_confirm" for="save_and_edit_id">Записать</label>
+                <label class="button button_confirm" for="save_and_exit_id">Сохранить и закрыть</label>
+                <label class="button button_confirm" for="save_and_edit_id">Сохранить</label>
                 <a href="{% url 'viewEmployee' %}">
-                    <div class="button">Выйти</div>
+                    <div class="button">Назад</div>
                 </a>
             </div>
         </div>

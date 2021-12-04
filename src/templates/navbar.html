@@ -1,7 +1,7 @@
 {% load static %}
 <div class="block_main navbar_main">
     <div class="block_info navbar">
-        <h3>Здравствуйте, {{ user.name }}</h3>
+        <h3>Здравствуйте, {{ logger_in_user.name }}</h3>
         <div class="ul">
             <div class="li"><a href={% url 'home'%}>на главную</a></div>
             <div class="li"><a href={% url 'logout'%}>выход</a></div>

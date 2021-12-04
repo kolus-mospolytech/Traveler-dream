@@ -9,28 +9,28 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="ul ul-info">
-                    <h4>Основые данные</h4>
+                    <h4>Основные данные</h4>
                     <div class="li">
                         <label>
-                            <span>Имя</span>
+                            <span>Имя:</span>
                             {{ form_client.name }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>ФИО</span>
+                            <span>ФИО:</span>
                             {{ form_client.fullname }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Пол</span>
+                            <span>Пол:</span>
                             {{ form_client.sex }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Статус</span>
+                            <span>Статус:</span>
                             {{ form_client.status }}
                         </label>
                     </div>
@@ -39,43 +39,43 @@
                     <h4>Паспорт</h4>
                     <div class="li">
                         <label>
-                            <span>Серия</span>
+                            <span>Серия:</span>
                             {{ form_passport.series }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Номер</span>
+                            <span>Номер:</span>
                             {{ form_passport.number }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Дата рождения</span>
+                            <span>Дата рождения:</span>
                             {{ form_passport.birth_date }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Место рождения</span>
+                            <span>Место рождения:</span>
                             {{ form_passport.birth_place }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Дата получения</span>
+                            <span>Дата выдачи:</span>
                             {{ form_passport.issue_date }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Дата окончания</span>
+                            <span>Дата окончания:</span>
                             {{ form_passport.expiry_date }}
                         </label>
                     </div>
                     <div class="li">
                         <label>
-                            <span>Место выдачи</span>
+                            <span>Место выдачи:</span>
                             {{ form_passport.authority }}
                         </label>
                     </div>
@@ -94,10 +94,10 @@
                 {% endfor %}
             </div>
             <div class="ul ul-button">
-                <label class="button button_confirm" for="save_and_exit_id">Записать и выйти</label>
-                <label class="button button_confirm" for="save_id">Записать</label>
+                <label class="button button_confirm" for="save_and_exit_id">Сохранить и закрыть</label>
+                <label class="button button_confirm" for="save_id">Сохранить</label>
                 <a href="{% url 'viewClient' %}">
-                    <div class="button">Выйти</div>
+                    <div class="button">Назад</div>
                 </a>
             </div>
         </div>

@@ -13,18 +13,18 @@
             </div>
             <div class="table">
                 <div class="tr">
-                    <div class="td">Сотрудник</div>
                     <div class="td">ФИО</div>
+                    <div class="td">Имя пользователя</div>
+                    <div class="td">Должность</div>
                     <div class="td">Организация</div>
-                    <div class="td">Статус</div>
                     <div class="td td-deleted">Действия</div>
                 </div>
                 {% for item in users_list %}
                     <div class="tr">
-                        <div class="td">{{ item.name }}</div>
                         <div class="td">{{ item.full_name }}</div>
-                        <div class="td">{{ item.organization }}</div>
+                        <div class="td">{{ item.username }}</div>
                         <div class="td">{{ item.groups.all.0 }}</div>
+                        <div class="td">{{ item.organization }}</div>
                         <div class="td td-deleted">
                             <div class="li"><a href={% url 'editEmployee' item.id %}>Изменить</a></div>
                             <div class="li"><a href={% url 'deletedEmployee' item.id %}>Удалить</a></div>
