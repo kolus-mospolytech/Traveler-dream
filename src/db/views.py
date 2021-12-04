@@ -40,7 +40,7 @@ def view_employee(request):
     context = {
         'users_list': users_list,
     }
-    return render(request, 'Administrator/viewEmployee.html', context)
+    return render(request, 'Employee/viewEmployee.html', context)
 
 
 @login_required(login_url='login')
@@ -61,7 +61,7 @@ def add_employee(request):
         'form': form,
         'position': position,
     }
-    return render(request, 'Administrator/addEmployee.html', context)
+    return render(request, 'Employee/addEmployee.html', context)
 
 
 @login_required(login_url='login')
@@ -90,7 +90,7 @@ def edit_employee(request, pk):
         'form': form,
         'position': position,
     }
-    return render(request, 'Administrator/editEmployee.html', context)
+    return render(request, 'Employee/editEmployee.html', context)
 
 
 @login_required(login_url='login')
@@ -107,7 +107,7 @@ def delete_employee(request, pk):
     context = {
         'user': user,
     }
-    return render(request, 'Administrator/deleteEmployee.html', context)
+    return render(request, 'Employee/deleteEmployee.html', context)
 
 
 @login_required(login_url='login')
@@ -119,7 +119,7 @@ def view_client(request):
         'client_list': client_list,
         'passport_list': passport_list,
     }
-    return render(request, 'Administrator/viewClient.html', context)
+    return render(request, 'Client/viewClient.html', context)
 
 
 @login_required(login_url='login')
@@ -150,7 +150,7 @@ def add_client(request):
         'form_passport': form_passport,
 
     }
-    return render(request, 'Administrator/addClient.html', context)
+    return render(request, 'Client/addClient.html', context)
 
 
 @login_required(login_url='login')
@@ -180,7 +180,7 @@ def edit_client(request, pk):
         'form_client': form_client,
         'form_passport': form_passport,
     }
-    return render(request, 'Administrator/editClient.html', context)
+    return render(request, 'Client/editClient.html', context)
 
 
 @login_required(login_url='login')
@@ -196,7 +196,7 @@ def delete_client(request, pk):
     context = {
         'client': client,
     }
-    return render(request, 'Administrator/deleteClient.html', context)
+    return render(request, 'Client/deleteClient.html', context)
 
 
 @login_required(login_url='login')
@@ -217,4 +217,4 @@ def add_passport(request, pk):
     context = {
         'form': form,
     }
-    return render(request, 'Administrator/addInternationalPassport.html', context)
+    return render(request, 'Client/addInternationalPassport.html', context)
