@@ -43,9 +43,12 @@
                         <label>
                             <span>Должность</span>
                             <select name="position" required>
-                                <option value="3" {% if position == "администратор" %} selected {% endif %}>Администратор</option>
+                                <option value="3" {% if position == "администратор" %} selected {% endif %}>
+                                    Администратор
+                                </option>
                                 <option value="1" {% if position == "менеджер" %} selected {% endif %}>Менеджер</option>
-                                <option value="2" {% if position == "бухгалтер" %} selected {% endif %}>Бухгалтер</option>
+                                <option value="2" {% if position == "бухгалтер" %} selected {% endif %}>Бухгалтер
+                                </option>
                                 <option value="4" {% if position == "агент" %} selected {% endif %}>Агент</option>
                             </select>
                         </label>
@@ -55,7 +58,8 @@
                             {#{{ form.is_staff }}#}
                             {#{{ form.is_active }}#}
                             {{ form.date_joined }}
-                            <input id="add_employee_id" type="submit">
+                            <input id="save_id" name="save" type="submit">
+                            <input id="save_and_exit_id" name="save_and_exit" type="submit">
                         </label>
                     </div>
                     <div class="li li_hidden">
@@ -78,7 +82,8 @@
                 </div>
             </form>
             <div class="ul ul-button">
-                <label class="button button_confirm" for="add_employee_id">Записать</label>
+                <label class="button button_confirm" for="save_and_exit_id">Записать и выйти</label>
+                <label class="button button_confirm" for="save_id">Записать</label>
                 <a href="{% url 'viewEmployee' %}">
                     <div class="button">Выйти</div>
                 </a>

@@ -54,6 +54,10 @@ def add_employee(request):
             new_user.save()
             new_user.groups.add(Group.objects.get(id=position))
             messages.info(request, 'Запись успешна добавлена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewEmployee')
+            elif 'save_and_edit' in request.POST:
+                return redirect('editEmployee', pk=new_user.id)
         else:
             messages.info(request, form.errors)
 
@@ -81,7 +85,10 @@ def edit_employee(request, pk):
             new_user.groups.clear()
             new_user.groups.add(Group.objects.get(id=new_position))
             messages.info(request, 'Запись успешна сохранена')
-            return redirect('editEmployee', pk)
+            if 'save_and_exit' in request.POST:
+                return redirect('viewEmployee')
+            elif 'save' in request.POST:
+                return redirect('editEmployee', pk)
         else:
             messages.error(request, form.errors)
 
@@ -139,7 +146,10 @@ def add_client(request):
                 passport.client = Client.objects.get(id=client.id)
                 passport.save()
                 messages.info(request, "Клиент успешно создан")
-                return redirect('addClient')
+                if 'save_and_exit' in request.POST:
+                    return redirect('viewClient')
+                elif 'save_and_edit' in request.POST:
+                    return redirect('editClient', pk=client.id)
             else:
                 client.delete()
                 messages.error(request, form_passport.errors)
@@ -170,6 +180,10 @@ def edit_client(request, pk):
             new_passport = form_passport.save(commit=False)
             new_passport.save()
             messages.info(request, 'Запись успешна сохранена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewClient')
+            elif 'save' in request.POST:
+                return redirect('editClient', pk)
         else:
             messages.error(request, form_client.errors)
             messages.error(request, form_passport.errors)

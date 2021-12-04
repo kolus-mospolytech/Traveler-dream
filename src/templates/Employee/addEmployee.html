@@ -68,7 +68,8 @@
                             {{ form.is_active }}
                             {{ form.is_superuser }}
                             {{ form.date_joined }}
-                            <input id="add_employee_id" type="submit">
+                            <input id="save_and_exit_id" name="save_and_exit" type="submit">
+                            <input id="save_and_edit_id" name="save_and_edit" type="submit">
                         </label>
                     </div>
                     <div class="li li_hidden">
@@ -86,8 +87,9 @@
                 </div>
             </form>
             <div class="ul ul-button">
-                <label class="button button_confirm" for="add_employee_id">Записать</label>
-                <a href="{% url 'home' %}">
+                <label class="button button_confirm" for="save_and_exit_id">Записать и выйти</label>
+                <label class="button button_confirm" for="save_and_edit_id">Записать</label>
+                <a href="{% url 'viewEmployee' %}">
                     <div class="button">Выйти</div>
                 </a>
             </div>

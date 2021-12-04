@@ -119,10 +119,10 @@ class InternationalPassport(models.Model):
     client = models.OneToOneField(Client, on_delete=models.CASCADE, db_column='client', verbose_name='Клиент')
     series = models.DecimalField('Серия', max_digits=2, decimal_places=0)
     number = models.DecimalField('Номер', max_digits=7, decimal_places=0)
-    birth_date = models.DateField('Дата рождения')
+    birth_date = models.DateField('Дата рождения', default=timezone.now)
     birth_place = models.CharField('Место рождения', max_length=45)
-    issue_date = models.DateField('Дата выдачи', )
-    expiry_date = models.DateField('Дата окончания срока действия', )
+    issue_date = models.DateField('Дата выдачи', default=timezone.now)
+    expiry_date = models.DateField('Дата окончания срока действия', default=timezone.now)
     authority = models.CharField('Орган, выдавший документ', max_length=45)
 
     def __str__(self):

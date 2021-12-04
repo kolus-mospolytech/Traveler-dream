@@ -82,7 +82,8 @@
                     <div class="li">
                         <label>
                             {{ form.client }}
-                            <input id="add_employee_id" type="submit">
+                            <input id="save_id" name="save" type="submit">
+                            <input id="save_and_exit_id" name="save_and_exit" type="submit">
                         </label>
                     </div>
                 </div>
@@ -93,7 +94,8 @@
                 {% endfor %}
             </div>
             <div class="ul ul-button">
-                <label class="button button_confirm" for="add_employee_id">Далее</label>
+                <label class="button button_confirm" for="save_and_exit_id">Записать и выйти</label>
+                <label class="button button_confirm" for="save_id">Записать</label>
                 <a href="{% url 'viewClient' %}">
                     <div class="button">Выйти</div>
                 </a>
