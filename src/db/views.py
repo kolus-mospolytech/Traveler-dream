@@ -1,38 +1,19 @@
 from django.contrib import messages
-from django.contrib.auth.models import Group
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.shortcuts import render, redirect
 
-from .models import RoomType, Client, InternationalPassport
 from .forms import CreateEmployee, EditEmployee, AddClient, AddInternationalPassport, EditClient, \
     EditInternationalPassport
+from .models import Client, InternationalPassport
 
 
 @login_required(login_url='login')
 def index(request):
-    room = RoomType.objects.all()
     context = {
-        'name': room,
     }
     return render(request, 'index.html', context)
-
-
-# def register_page(request):
-#     if request.user.is_authenticated:
-#         return redirect('home')
-#     form = UserCreationForm()
-#
-#     if request.method == 'POST':
-#         form = CreateUserForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#
-#     context = {
-#         'form': form,
-#     }
-#
-#     return render(request, 'register.html', context)
 
 
 def login_page(request):
