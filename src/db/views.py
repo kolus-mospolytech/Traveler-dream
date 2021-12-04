@@ -6,7 +6,8 @@ from django.shortcuts import render, redirect
 
 from .forms import CreateEmployee, EditEmployee, AddClient, AddInternationalPassport, EditClient, \
     EditInternationalPassport
-from .models import Client, InternationalPassport
+from .managers import CustomUserManager
+from .models import Client, InternationalPassport, Employee
 
 
 @login_required(login_url='login')
@@ -51,6 +52,7 @@ def add_employee(request):
         form = CreateEmployee(request.POST, request.FILES)
         if form.is_valid():
             new_user = form.save(commit=False)
+            new_user.set_password(form.instance.password)
             new_user.save()
             new_user.groups.add(Group.objects.get(id=position))
             messages.info(request, 'Запись успешна добавлена')
