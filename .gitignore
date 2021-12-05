@@ -1,7 +1,8 @@
 .idea
-src/.env
+.env
 _scraps
-src/traveler_dream/media
+traveler_dream/media
+static/media
 src/db/migrations/*.py
-!src/db/migrations/__init__.py
+!db/migrations/__init__.py
 src/static/media/avatars

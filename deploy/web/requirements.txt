@@ -1,9 +1,0 @@
-Django
-Pillow
-mysqlclient
-django-mysql
-# django-grappelli
-# django-ckeditor
-# django-hashid-field
-django-nested-admin
-python-decouple

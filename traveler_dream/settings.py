@@ -26,9 +26,11 @@ PROJECT_ROOT = os.path.dirname(__file__)
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'cis4.std-950.ist.mospolytech.ru'
+]
 
 # Application definition
 
@@ -81,11 +83,11 @@ WSGI_APPLICATION = 'traveler_dream.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dev',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'db',
-        'PORT': '3306',
+        'NAME': config("DB_NAME"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
+        'HOST': config("DB_HOST"),
+        'PORT': config("DB_PORT"),
         'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
