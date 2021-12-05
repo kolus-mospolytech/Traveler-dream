@@ -31,9 +31,9 @@ class Employee(AbstractBaseUser, PermissionsMixin):
 
     username_validator = UnicodeUsernameValidator()
 
-    name_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я]*$', 'Вы можете использовать только буквы')
+    # name_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я]*$', 'Вы можете использовать только буквы')
 
-    fullname_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я ]*$', 'Вы можете использовать только буквы')
+    # fullname_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я ]*$', 'Вы можете использовать только буквы')
 
     username = models.CharField(
         _('username'),
@@ -47,8 +47,8 @@ class Employee(AbstractBaseUser, PermissionsMixin):
     )
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='organization',
                                      verbose_name='Организация', blank=True, null=True)
-    name = models.CharField('Имя', max_length=45, validators=[name_validator], blank=True)
-    full_name = models.CharField('ФИО', max_length=255, validators=[fullname_validator], blank=True)
+    name = models.CharField('Имя', max_length=45, blank=True)
+    full_name = models.CharField('ФИО', max_length=255, blank=True)
     sex = models.CharField('Пол', max_length=7, choices=Sex.choices, blank=False)
     birth_date = models.DateField('Дата рождения', blank=True, default=timezone.now)
     photo = models.ImageField('Фото', upload_to='avatars', blank=True, null=True)
