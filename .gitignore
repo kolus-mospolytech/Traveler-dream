@@ -6,3 +6,4 @@ static/media
 src/db/migrations/*.py
 !db/migrations/__init__.py
 src/static/media/avatars
+venv
