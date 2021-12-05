@@ -166,6 +166,23 @@ input[type=file] {
   min-width: 1200px;
 }
 
+.block_horizontal {
+  width: 100%;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search {
+  margin: 0;
+  width: auto;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.search button {
+  margin-left: 5%;
+}
+
 .ul-button {
   margin-top: 30px;
 }
@@ -330,6 +347,9 @@ form .ul-photo img {
 .client_list form h4 {
   text-align: center;
   margin-top: 30px;
+}
+.client_list .search {
+  width: auto;
 }
 .client_list .table .tr .td {
   width: 50%;

@@ -5,7 +5,13 @@
     {% include 'navbar.html' %}
     <div class="block_main">
         <div class="block_info employee_list">
-            <h4>Список сотрудников</h4>
+            <div class="block_horizontal">
+                <h4>Список сотрудников</h4>
+                <form type="GET" action="." class="search">
+                    <input id="search_box" type="text" name="search_box" placeholder="Поиск...">
+                    <button id="search_submit" type="submit">Поиск</button>
+                </form>
+            </div>
             <div class="li li_hidden">
                 {% for message in messages %}
                     <span id="messages">{{ message }}</span>

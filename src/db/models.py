@@ -26,8 +26,8 @@ class Organization(models.Model):
 
 class Employee(AbstractBaseUser, PermissionsMixin):
     class Sex(models.TextChoices):
-        MALE = 'М', 'Мужчина'
-        FEMALE = 'Ж', 'Женщина'
+        MALE = 'Мужчина', 'Мужчина'
+        FEMALE = 'Женщина', 'Женщина'
 
     username_validator = UnicodeUsernameValidator()
 
@@ -49,7 +49,7 @@ class Employee(AbstractBaseUser, PermissionsMixin):
                                      verbose_name='Организация', blank=True, null=True)
     name = models.CharField('Имя', max_length=45, validators=[name_validator], blank=True)
     full_name = models.CharField('ФИО', max_length=255, validators=[fullname_validator], blank=True)
-    sex = models.CharField('Пол', max_length=1, choices=Sex.choices, blank=False)
+    sex = models.CharField('Пол', max_length=7, choices=Sex.choices, blank=False)
     birth_date = models.DateField('Дата рождения', blank=True, default=timezone.now)
     photo = models.ImageField('Фото', upload_to='avatars', blank=True, null=True)
     is_staff = models.BooleanField(
@@ -99,14 +99,14 @@ class ClientStatus(models.Model):
 
 class Client(models.Model):
     class Sex(models.TextChoices):
-        MALE = 'М', 'Мужчина'
-        FEMALE = 'Ж', 'Женщина'
+        MALE = 'Мужчина', 'Мужчина'
+        FEMALE = 'Женщина', 'Женщина'
 
     status = models.ForeignKey(ClientStatus, on_delete=models.DO_NOTHING, db_column='status', verbose_name='Статус',
                                blank=False)
     name = models.CharField('Имя', max_length=45)
-    fullname = models.CharField('ФИО', max_length=255)
-    sex = models.CharField('Пол', max_length=1, choices=Sex.choices, blank=False)
+    full_name = models.CharField('ФИО', max_length=255)
+    sex = models.CharField('Пол', max_length=7, choices=Sex.choices, blank=False)
 
     def __str__(self):
         template = '{0.name}'

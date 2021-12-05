@@ -6,8 +6,8 @@ from django.shortcuts import render, redirect
 
 from .forms import CreateEmployee, EditEmployee, AddClient, AddInternationalPassport, EditClient, \
     EditInternationalPassport
-from .managers import CustomUserManager
-from .models import Client, InternationalPassport, Employee
+from .models import Client, InternationalPassport
+from django.db.models import Q
 
 
 @login_required(login_url='login')
@@ -40,7 +40,18 @@ def login_page(request):
 @login_required(login_url='login')
 def view_employee(request):
     logger_in_user = request.user
-    users_list = get_user_model().objects.all()
+
+    if request.method == 'GET':
+        search_query = request.GET.get('search_box', '')
+        users_list = get_user_model().objects.filter(
+            Q(full_name__icontains=search_query) |
+            Q(username__icontains=search_query) |
+            Q(organization__name__icontains=search_query) |
+            Q(groups__name__icontains=search_query)
+        )
+    else:
+        users_list = get_user_model().objects.all()
+
     context = {
         'logger_in_user': logger_in_user,
         'users_list': users_list,
@@ -132,7 +143,17 @@ def delete_employee(request, pk):
 @login_required(login_url='login')
 def view_client(request):
     logger_in_user = request.user
-    client_list = Client.objects.all()
+
+    if request.method == 'GET':
+        search_query = request.GET.get('search_box', '')
+        client_list = Client.objects.filter(
+            Q(full_name__icontains=search_query) |
+            Q(status__name__icontains=search_query) |
+            Q(sex__icontains=search_query)
+        )
+    else:
+        client_list = Client.objects.all()
+
     passport_list = InternationalPassport.objects.all()
 
     context = {

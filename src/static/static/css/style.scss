@@ -201,6 +201,24 @@ input[type="file"] {
   min-width: $siteMaxWidth;
 }
 
+.block_horizontal {
+  width: 100%;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search {
+  margin: 0;
+  width: auto;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  button {
+    margin-left: 5%;
+  }
+}
+
 .ul-button{
   margin-top: 30px;
 
@@ -416,6 +434,10 @@ form {
       text-align: center;
       margin-top: 30px;
     }
+  }
+
+  .search {
+    width: auto;
   }
 
   //form {

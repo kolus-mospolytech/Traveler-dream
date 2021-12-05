@@ -79,7 +79,7 @@ class AddClient(ModelForm):
         model = Client
         widgets = {
             'name': forms.TextInput(attrs={'required': 'required'}),
-            'fullname': forms.TextInput(attrs={'required': 'required'}),
+            'full_name': forms.TextInput(attrs={'required': 'required'}),
             'sex': forms.Select(attrs={'required': 'required'}),
             'status': forms.Select(attrs={'required': 'required'}),
         }
@@ -91,7 +91,7 @@ class EditClient(ModelForm):
         model = Client
         widgets = {
             'name': forms.TextInput(attrs={'required': 'required'}),
-            'fullname': forms.TextInput(attrs={'required': 'required'}),
+            'full_name': forms.TextInput(attrs={'required': 'required'}),
             'sex': forms.Select(attrs={'required': 'required'}),
             'status': forms.Select(attrs={'required': 'required'}),
         }
