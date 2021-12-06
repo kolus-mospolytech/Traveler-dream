@@ -13,11 +13,16 @@
                 {% elif logger_in_user|has_group:'Менеджер' %}
                     {% include 'managerLinks.html' %}
 
-{#                {% elif user|has_group:'Agent' %}#}
-{#                    {% include 'adminLinks.html' %}#}
-{#                    #}
-{#                {% elif user|has_group:'Accountant' %}#}
-{#                    {% include 'adminLinks.html' %}#}
+                {% else %}
+                    <div class="ul">
+                        <h4>TO-DO</h4>
+                    </div>
+
+                    {#                {% elif user|has_group:'Agent' %}#}
+                    {#                    {% include 'adminLinks.html' %}#}
+                    {#                    #}
+                    {#                {% elif user|has_group:'Accountant' %}#}
+                    {#                    {% include 'adminLinks.html' %}#}
                 {% endif %}
             </div>
         </div>
