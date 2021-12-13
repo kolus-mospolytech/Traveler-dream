@@ -1,3 +1,3 @@
 # Traveler-dream
 
-Django project
+Django + MySQL project
