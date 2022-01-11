@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from .models import Client, Employee, InternationalPassport, Country
+from .models import Client, Employee, InternationalPassport, Country, City, Hotel
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -158,5 +158,49 @@ class EditCountry(ModelForm):
         model = Country
         widgets = {
             'name': forms.TextInput(attrs={'required': 'required'}),
+        }
+        fields = '__all__'
+
+
+class AddCity(ModelForm):
+    class Meta:
+        model = City
+        widgets = {
+            'name': forms.TextInput(attrs={'required': 'required'}),
+            'country': forms.Select(attrs={'required': 'required'}),
+        }
+        fields = '__all__'
+
+
+class EditCity(ModelForm):
+    class Meta:
+        model = City
+        widgets = {
+            'name': forms.TextInput(attrs={'required': 'required'}),
+            'country': forms.Select(attrs={'required': 'required'}),
+        }
+        fields = '__all__'
+
+
+class AddHotel(ModelForm):
+    class Meta:
+        model = Hotel
+        widgets = {
+            'city': forms.Select(attrs={'required': 'required'}),
+            'type': forms.Select(attrs={'required': 'required'}),
+            'name': forms.TextInput(attrs={'required': 'required'}),
+            'address': forms.Textarea(attrs={'required': 'required'}),
+        }
+        fields = '__all__'
+
+
+class EditHotel(ModelForm):
+    class Meta:
+        model = Hotel
+        widgets = {
+            'city': forms.Select(attrs={'required': 'required'}),
+            'type': forms.Select(attrs={'required': 'required'}),
+            'name': forms.TextInput(attrs={'required': 'required'}),
+            'address': forms.Textarea(attrs={'required': 'required'}),
         }
         fields = '__all__'

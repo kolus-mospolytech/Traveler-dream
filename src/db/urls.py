@@ -25,4 +25,14 @@ urlpatterns = [
                   path('country/add/', views.add_country, name='addCountry'),
                   path('country/edit/<int:pk>/', views.edit_country, name='editCountry'),
                   path('country/delete/<int:pk>/', views.delete_country, name='deletedCountry'),
+
+                  path('city/', views.view_city, name='viewCity'),
+                  path('city/add/', views.add_city, name='addCity'),
+                  path('city/edit/<int:pk>/', views.edit_city, name='editCity'),
+                  path('city/delete/<int:pk>/', views.delete_city, name='deletedCity'),
+
+                  path('hotel/', views.view_hotel, name='viewHotel'),
+                  path('hotel/add/', views.add_hotel, name='addHotel'),
+                  path('hotel/edit/<int:pk>/', views.edit_hotel, name='editHotel'),
+                  path('hotel/delete/<int:pk>/', views.delete_hotel, name='deletedHotel'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

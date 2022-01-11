@@ -5,8 +5,8 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 
 from .forms import CreateEmployee, EditEmployee, AddClient, AddInternationalPassport, EditClient, \
-    EditInternationalPassport, AddCountry, EditCountry
-from .models import Client, InternationalPassport, Country
+    EditInternationalPassport, AddCountry, EditCountry, AddCity, EditCity, AddHotel, EditHotel
+from .models import Client, InternationalPassport, Country, City, Hotel
 from django.db.models import Q
 
 
@@ -311,7 +311,6 @@ def edit_country(request, pk):
             messages.error(request, form.errors)
 
     context = {
-        'employee': country,
         'form': form,
     }
     return render(request, 'Geo/Country/editCountry.html', context)
@@ -328,3 +327,154 @@ def delete_country(request, pk):
         'country': country,
     }
     return render(request, 'Geo/Country/deleteCountry.html', context)
+
+
+@login_required(login_url='login')
+def view_city(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_box', '')
+        cities_list = City.objects.all().filter(
+            Q(name__icontains=search_query) |
+            Q(country__name__icontains=search_query)
+        )
+    else:
+        cities_list = City.objects.all()
+
+    context = {
+        'cities_list': cities_list,
+    }
+    return render(request, 'Geo/City/viewCity.html', context)
+
+
+@login_required(login_url='login')
+def add_city(request):
+    form = AddCity()
+    if request.method == 'POST':
+        form = AddCity(request.POST, request.FILES)
+        if form.is_valid():
+            new_city = form.save(commit=False)
+            new_city.save()
+            messages.info(request, 'Запись успешна добавлена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewCity')
+            elif 'save_and_edit' in request.POST:
+                return redirect('editCity', pk=new_city.id)
+        else:
+            messages.info(request, form.errors)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'Geo/City/addCity.html', context)
+
+
+@login_required(login_url='login')
+def edit_city(request, pk):
+    city = City.objects.get(id=pk)
+    form = EditCity(instance=city)
+    if request.method == 'POST':
+        form = EditCity(request.POST, request.FILES, instance=city)
+        if form.is_valid():
+            new_city = form.save(commit=False)
+            new_city.save()
+            messages.info(request, 'Запись успешна сохранена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewCity')
+            elif 'save' in request.POST:
+                return redirect('editCity', pk)
+        else:
+            messages.error(request, form.errors)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'Geo/City/editCity.html', context)
+
+
+@login_required(login_url='login')
+def delete_city(request, pk):
+    city = City.objects.get(id=pk)
+    if request.method == 'POST':
+        city.delete()
+        messages.info(request, 'Город ' + city.name + ' успешно удален')
+        return redirect('viewCity')
+    context = {
+        'city': city,
+    }
+    return render(request, 'Geo/City/deleteCity.html', context)
+
+
+@login_required(login_url='login')
+def view_hotel(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_box', '')
+        hotels_list = Hotel.objects.all().filter(
+            Q(name__icontains=search_query) |
+            Q(city__name__icontains=search_query) |
+            Q(type__name__icontains=search_query)
+        )
+    else:
+        hotels_list = Hotel.objects.all()
+
+    context = {
+        'hotels_list': hotels_list,
+    }
+    return render(request, 'Geo/Hotel/viewHotel.html', context)
+
+
+@login_required(login_url='login')
+def add_hotel(request):
+    form = AddHotel()
+    if request.method == 'POST':
+        form = AddHotel(request.POST, request.FILES)
+        if form.is_valid():
+            new_hotel = form.save(commit=False)
+            new_hotel.save()
+            messages.info(request, 'Запись успешна добавлена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewHotel')
+            elif 'save_and_edit' in request.POST:
+                return redirect('editHotel', pk=new_hotel.id)
+        else:
+            messages.info(request, form.errors)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'Geo/Hotel/addHotel.html', context)
+
+
+@login_required(login_url='login')
+def edit_hotel(request, pk):
+    hotel = Hotel.objects.get(id=pk)
+    form = EditHotel(instance=hotel)
+    if request.method == 'POST':
+        form = EditHotel(request.POST, request.FILES, instance=hotel)
+        if form.is_valid():
+            new_hotel = form.save(commit=False)
+            new_hotel.save()
+            messages.info(request, 'Запись успешна сохранена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewHotel')
+            elif 'save' in request.POST:
+                return redirect('editHotel', pk)
+        else:
+            messages.error(request, form.errors)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'Geo/Hotel/editHotel.html', context)
+
+
+@login_required(login_url='login')
+def delete_hotel(request, pk):
+    hotel = Hotel.objects.get(id=pk)
+    if request.method == 'POST':
+        hotel.delete()
+        messages.info(request, 'Отель ' + hotel.name + ' успешно удален')
+        return redirect('viewHotel')
+    context = {
+        'hotel': hotel,
+    }
+    return render(request, 'Geo/Hotel/deleteHotel.html', context)
