@@ -23,10 +23,10 @@ LOCK TABLES `auth_group` WRITE;
 /*!40000 ALTER TABLE `auth_group`
     DISABLE KEYS */;
 INSERT INTO `auth_group`
-VALUES (1, 'Manager'),
-       (2, 'Accountant'),
-       (3, 'Administrator'),
-       (4, 'Agent');
+VALUES (4, 'Агент'),
+       (3, 'Администратор'),
+       (2, 'Бухгалтер'),
+       (1, 'Менеджер');
 /*!40000 ALTER TABLE `auth_group`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -159,6 +159,60 @@ UNLOCK TABLES;
 LOCK TABLES `db_employee` WRITE;
 /*!40000 ALTER TABLE `db_employee`
     DISABLE KEYS */;
+INSERT INTO `db_employee`
+VALUES (1, 'pbkdf2_sha256$260000$jFXMZ0d2GEGLLMWyCRjz5s$4tasx9w4wknxxAL51uVeZBn7KZYQm9sIS7MDncCJtdg=',
+        '2021-12-07 13:15:53.847383', 1, 'root', 'Админов А.А.', 'Админов Админ Админович', 'Мужчина', '2021-12-06',
+        'avatars/polytech_white.png', 1, 1, '2021-12-05 22:05:14.280086', 1),
+       (2, 'pbkdf2_sha256$260000$nuQvslQdfwcc352uiZRqLO$aFcDTocVUp7aVOhf8DpLMc+L6wyVgg15dbQ3S2qp8Cg=',
+        '2021-12-07 13:15:31.485921', 0, 'ZEwTY6zA', 'Иванов А.А.', 'Иванов Александр Александрович', 'Мужчина',
+        '1961-11-01', 'avatars/Фото_Иванов.jpg', 0, 1, '2021-12-06 01:29:43', 1),
+       (3, 'pbkdf2_sha256$260000$v68c1NBQUv2rZIg5hoLWqE$z+Mvjrql8aRHEUMC1yC0HRrGV2uKc3/BF2PBLzj2IXI=', null, 0,
+        'x53wLVmQ', 'Сидоров К.Л.', 'Сидоров Константин Леонидович', 'Мужчина', '1984-11-20',
+        'avatars/Фото_Сидоров.jpg', 0, 1, '2021-12-06 01:29:43', 1),
+       (4, 'pbkdf2_sha256$260000$NY4ty0YgnYp0eWStqEL2DI$esyLSxC0nDWghcmZrm+oUrLIFbS7AYIIYsoQXyR7Nr4=', null, 0,
+        'tVM3j5Bg', 'Федорова М.И.', 'Федорова Мария Ивановна', 'Женщина', '1992-07-23', 'avatars/Фото_Федорова.jpg', 0,
+        1, '2021-12-06 01:29:43', 1),
+       (5, 'pbkdf2_sha256$260000$gCL0FTnLTuA2OVDoYxvIh2$uPvBUG5S6/89SPE+8vzSaIidpyVurEdZF2jkFP/bxuc=', null, 0,
+        'D9SMea4d', 'Константинов А.Л.', 'Константинов Артем Леонидович', 'Мужчина', '1986-01-10',
+        'avatars/Фото_Константинов.jpg', 0, 1, '2021-12-06 01:29:43', 1),
+       (6, 'pbkdf2_sha256$260000$S2yUXxH85L1USMgbjlwIkv$uz9Oy8FbL8WdHamjpe84DWJThFzDvWfE5qezIAmtVLE=', null, 0,
+        'CtMd7p2P', 'Романенко И.С.', 'Романенко Ирина Сергеевна', 'Женщина', '1979-05-25', '', 0, 1,
+        '2021-12-06 01:29:43', 2),
+       (7, 'pbkdf2_sha256$260000$snxSVomma8TSL0WwVPkw5b$mT2R2xusL1q1vm9Bnx3ZpEse9O9/WkSQei86rR/mEIs=',
+        '2021-12-06 09:02:20.063172', 0, 'nPszc6Wh', 'Зоммер Г. Я.', 'Зоммер Генрих Янович', 'Мужчина', '2000-02-12',
+        '', 0, 1, '2021-12-06 01:29:43', 2),
+       (8, 'pbkdf2_sha256$260000$iLuQ6aL2nVlsNuxSjlRS7d$JuvHalilx6zidrwSc/wxZBQY6msULNYLAuiyBZImauU=', null, 0,
+        'FmfbC7N9', 'Николаев С.С.', 'Николаев Сергей Сергеевич', 'Мужчина', '1980-05-01', '', 0, 1,
+        '2021-12-06 01:29:43', 2),
+       (9, 'pbkdf2_sha256$260000$UL05OyswFmvjnHNVuKTJS6$allrTtFOEmeUp/3st+7fC+rP/M5wICpHEnwTr83NiMw=', null, 0,
+        'uC38vsAQ', 'Филатов И.В.', 'Филатов Игорь Владимирович', 'Мужчина', '1983-05-02', '', 0, 1,
+        '2021-12-06 01:29:43', 3),
+       (10, 'pbkdf2_sha256$260000$tRXh66yinC06oKmwSbOTAk$9E2v0p+RS8n3ukrJVuBf1eL5re5bJN/vTLKtAD14Kl0=', null, 0,
+        'MAuUQ4sk', 'Крохин М. И.', 'Крохин Михаил Измайлович', 'Мужчина', '2000-10-12', '', 0, 1,
+        '2021-12-06 01:29:43', 3),
+       (11, 'pbkdf2_sha256$260000$lKzKzC6hlPk74JTajMKhAE$M4EXXd6exgDz3TLkvP7J7KFHItcRgjFFd8lHxDF547Q=', null, 0,
+        'rz7tQsWF', 'Петров Р. С.', 'Петров Роман Семенович', 'Мужчина', '1965-11-01', '', 0, 1, '2021-12-06 01:29:43',
+        3),
+       (12, 'pbkdf2_sha256$260000$wfCmiDCTlG1okqSImpBmMw$ulEe5nPG9KGl5G5F+BEDBwU/RLq6HCOZGE4yiv6/EZ8=', null, 0,
+        'DUSKm5Mf', 'Одинцова В. И.', 'Одинцова Варвара Ивановна', 'Женщина', '1980-11-07', '', 0, 1,
+        '2021-12-06 01:29:43', 3),
+       (13, 'pbkdf2_sha256$260000$eSGXbiLcHNxoLdpANFw4Ov$sK63pNaN5YefwhQF4S9vWrWW07bryX2w8rQWQCtBa0c=', null, 0,
+        'nMTQDv9k', 'Ливидников К. С.', 'Ливидников Константин Сергеевич', 'Мужчина', '1992-10-23', '', 0, 1,
+        '2021-12-06 01:29:43', 1),
+       (14, 'pbkdf2_sha256$260000$6dFGZHVFnCILFireTQvQ6u$de2O1r2uXihewA9L+Y+SOzrUHLlqOP+p2+UqvpOMIHs=', null, 0,
+        'Jnj5XKP7', 'Липко Г. Г.', 'Липко Галина Григорьевна', 'Женщина', '1983-07-10', '', 0, 1, '2021-12-06 01:29:43',
+        2),
+       (15, 'pbkdf2_sha256$260000$Z28HCmXOtKELJMJ2iZw30S$y6gZ5VWzzL9Fu8ozxcNsSuQLBIDRBuQ9UmReN+gwljY=', null, 0,
+        'RANd4kcx', 'Броншнейн А. М.', 'Броншнейн Александр Михайлович', 'Мужчина', '1979-05-11', '', 0, 1,
+        '2021-12-06 01:29:43', 2),
+       (16, 'pbkdf2_sha256$260000$m9drpzD4Zt6Op7qpaMWbP6$jvpdQdPc72nZbpabh3PhS+u+IT8QXbNSLUgoPs4sbCw=', null, 0,
+        'vD8MJdAX', 'Виценко А. А.', 'Виценко Анатолий Анатольевич', 'Мужчина', '2000-12-12', '', 0, 1,
+        '2021-12-06 01:29:43', 2),
+       (17, 'pbkdf2_sha256$260000$uuj8PMhYxR3Dx4AiHmDWYu$gszWJfTRs65qBjJYi4BpCrbODZDnuLYDS/XBjCncpxo=', null, 0,
+        'UGP9v6hR', 'Виценко М. А.', 'Виценко Маргарита Александровна', 'Женщина', '1998-06-01', '', 0, 1,
+        '2021-12-06 01:29:43', 2),
+       (18, 'pbkdf2_sha256$260000$LAOLjxiXCnUYEGCR6kquQP$kgG2TEjsv0oDJgJHcVguNTrV4x2nl2GVIVYld+zoe+M=', null, 0,
+        'kolus', 'kolus', 'kolus', 'Мужчина', '2021-12-07', '', 0, 1, '2021-12-07 13:16:47.970716', 1);
 /*!40000 ALTER TABLE `db_employee`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -170,6 +224,25 @@ UNLOCK TABLES;
 LOCK TABLES `db_employee_groups` WRITE;
 /*!40000 ALTER TABLE `db_employee_groups`
     DISABLE KEYS */;
+INSERT INTO `db_employee_groups`
+VALUES (26, 1, 3),
+       (19, 2, 1),
+       (21, 3, 1),
+       (22, 4, 2),
+       (20, 5, 3),
+       (2, 6, 1),
+       (9, 7, 2),
+       (5, 8, 3),
+       (13, 9, 1),
+       (7, 10, 2),
+       (18, 11, 4),
+       (4, 12, 4),
+       (8, 13, 4),
+       (6, 14, 4),
+       (10, 15, 4),
+       (15, 16, 4),
+       (14, 17, 4),
+       (27, 18, 3);
 /*!40000 ALTER TABLE `db_employee_groups`
     ENABLE KEYS */;
 UNLOCK TABLES;

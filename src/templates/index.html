@@ -7,22 +7,17 @@
     <div class="block_main">
         <div class="block_info main">
             <div class="ul">
-                {% if logger_in_user|has_group:'Администратор' %}
+                {% if user|has_group:'Администратор' %}
                     {% include 'adminLinks.html' %}
 
-                {% elif logger_in_user|has_group:'Менеджер' %}
+                {% elif user|has_group:'Менеджер' %}
                     {% include 'managerLinks.html' %}
 
-                {% else %}
-                    <div class="ul">
-                        <h4>TO-DO</h4>
-                    </div>
+                {% elif user|has_group:'Agent' %}
+                    {% include 'agentLinks.html' %}
 
-                    {#                {% elif user|has_group:'Agent' %}#}
-                    {#                    {% include 'adminLinks.html' %}#}
-                    {#                    #}
-                    {#                {% elif user|has_group:'Accountant' %}#}
-                    {#                    {% include 'adminLinks.html' %}#}
+                {% elif user|has_group:'Accountant' %}
+                    {% include 'accountantLinks.html' %}
                 {% endif %}
             </div>
         </div>

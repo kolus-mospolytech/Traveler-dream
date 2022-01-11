@@ -69,14 +69,14 @@
                     </div>
                 </div>
                 <div class="ul ul-photo">
-                    {% if user.photo.url != null %}
+                    {% if employee.photo.url != null %}
                         <h5>Фото сотрудника</h5>
-                        {% if user.photo %}
-                            <a href="{{ user.photo.url }}" target="_blank">
-                                <img src="{{ user.photo.url }}" alt="user avatar">
+                        {% if employee.photo %}
+                            <a href="{{ employee.photo.url }}" target="_blank">
+                                <img src="{{ employee.photo.url }}" alt="employee avatar">
                             </a>
                         {% else %}
-                            <img src="{{ user.photo.url }}" alt="user avatar">
+                            <img src="{{ employee.photo.url }}" alt="employee avatar">
                         {% endif %}
                     {% else %}
                         <h5>Добавить фото</h5>
@@ -90,8 +90,8 @@
             <div class="ul ul-button">
                 <label class="button button_confirm" for="save_and_exit_id">Записать и выйти</label>
                 <label class="button button_confirm" for="save_id">Записать</label>
-                {% if user.photo %}
-                    <a href="{{ user.photo.url }}" download="{{ user.photo.filename }}">
+                {% if employee.photo %}
+                    <a href="{{ employee.photo.url }}" download="{{ employee.photo.filename }}">
                         <div class="button button_confirm">Скачать изображение</div>
                     </a>
                 {% endif %}

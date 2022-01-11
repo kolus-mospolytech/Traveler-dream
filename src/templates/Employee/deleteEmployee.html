@@ -5,7 +5,7 @@
     {% include 'navbar.html' %}
     <div class="block_main">
         <div class="block_info employee_card">
-            <h4>Вы уверены, что хотите удалить пользователя: {{ user.name }}</h4>
+            <h4>Вы уверены, что хотите удалить пользователя: {{ employee.name }}</h4>
             <form method="POST">
                 {% csrf_token %}
                 <div class="li">

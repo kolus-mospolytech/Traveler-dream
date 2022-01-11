@@ -12,9 +12,7 @@ from django.db.models import Q
 
 @login_required(login_url='login')
 def index(request):
-    logger_in_user = request.user
     context = {
-        'logger_in_user': logger_in_user,
     }
     return render(request, 'index.html', context)
 
@@ -39,8 +37,6 @@ def login_page(request):
 
 @login_required(login_url='login')
 def view_employee(request):
-    logger_in_user = request.user
-
     if request.method == 'GET':
         search_query = request.GET.get('search_box', '')
         users_list = get_user_model().objects.filter(
@@ -53,7 +49,6 @@ def view_employee(request):
         users_list = get_user_model().objects.all()
 
     context = {
-        'logger_in_user': logger_in_user,
         'users_list': users_list,
     }
     return render(request, 'Employee/viewEmployee.html', context)
@@ -61,7 +56,6 @@ def view_employee(request):
 
 @login_required(login_url='login')
 def add_employee(request):
-    logger_in_user = request.user
     form = CreateEmployee()
     position = request.POST.get('position')
     if request.method == 'POST':
@@ -80,7 +74,6 @@ def add_employee(request):
             messages.info(request, form.errors)
 
     context = {
-        'logger_in_user': logger_in_user,
         'form': form,
         'position': position,
     }
@@ -89,7 +82,6 @@ def add_employee(request):
 
 @login_required(login_url='login')
 def edit_employee(request, pk):
-    logger_in_user = request.user
     user = get_user_model().objects.get(id=pk)
     if user.groups.all().count() != 0:
         position = str(list(user.groups.all())[0]).lower()
@@ -113,8 +105,7 @@ def edit_employee(request, pk):
             messages.error(request, form.errors)
 
     context = {
-        'logger_in_user': logger_in_user,
-        'user': user,
+        'employee': user,
         'form': form,
         'position': position,
     }
@@ -123,7 +114,6 @@ def edit_employee(request, pk):
 
 @login_required(login_url='login')
 def delete_employee(request, pk):
-    logger_in_user = request.user
     user = get_user_model().objects.get(id=pk)
     if request.method == 'POST':
         if user.is_superuser != 1:
@@ -134,16 +124,13 @@ def delete_employee(request, pk):
             messages.error(request, 'Невозможно удалить пользователя')
             redirect('deletedEmployee', pk)
     context = {
-        'logger_in_user': logger_in_user,
-        'user': user,
+        'employee': user,
     }
     return render(request, 'Employee/deleteEmployee.html', context)
 
 
 @login_required(login_url='login')
 def view_client(request):
-    logger_in_user = request.user
-
     if request.method == 'GET':
         search_query = request.GET.get('search_box', '')
         client_list = Client.objects.filter(
@@ -157,7 +144,6 @@ def view_client(request):
     passport_list = InternationalPassport.objects.all()
 
     context = {
-        'logger_in_user': logger_in_user,
         'client_list': client_list,
         'passport_list': passport_list,
     }
@@ -166,7 +152,6 @@ def view_client(request):
 
 @login_required(login_url='login')
 def add_client(request):
-    logger_in_user = request.user
     form_client = AddClient()
     form_passport = AddInternationalPassport()
 
@@ -192,7 +177,6 @@ def add_client(request):
         else:
             messages.error(request, form_client.errors)
     context = {
-        'logger_in_user': logger_in_user,
         'form_client': form_client,
         'form_passport': form_passport,
 
@@ -202,7 +186,6 @@ def add_client(request):
 
 @login_required(login_url='login')
 def edit_client(request, pk):
-    logger_in_user = request.user
     client = Client.objects.get(id=pk)
     passport = InternationalPassport.objects.get(client_id=pk)
     form_client = EditClient(instance=client)
@@ -227,7 +210,6 @@ def edit_client(request, pk):
             messages.error(request, form_passport.errors)
 
     context = {
-        'logger_in_user': logger_in_user,
         'client': client,
         'passport': passport,
         'form_client': form_client,
@@ -238,7 +220,6 @@ def edit_client(request, pk):
 
 @login_required(login_url='login')
 def delete_client(request, pk):
-    logger_in_user = request.user
     client = Client.objects.get(id=pk)
     passport = InternationalPassport.objects.get(client_id=pk)
 
@@ -248,7 +229,6 @@ def delete_client(request, pk):
         messages.info(request, 'Клиент успешно удален')
         return redirect('viewClient')
     context = {
-        'logger_in_user': logger_in_user,
         'client': client,
     }
     return render(request, 'Client/deleteClient.html', context)
@@ -256,7 +236,6 @@ def delete_client(request, pk):
 
 @login_required(login_url='login')
 def add_passport(request, pk):
-    logger_in_user = request.user
     form = AddInternationalPassport()
     if request.method == 'POST':
         form = AddInternationalPassport(request.POST)
@@ -271,7 +250,6 @@ def add_passport(request, pk):
         else:
             messages.error(request, form.errors)
     context = {
-        'logger_in_user': logger_in_user,
         'form': form,
     }
     return render(request, 'Client/addInternationalPassport.html', context)
