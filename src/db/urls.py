@@ -20,4 +20,9 @@ urlpatterns = [
                   path('client/edit/<int:pk>/', views.edit_client, name='editClient'),
                   path('client/delete/<int:pk>/', views.delete_client, name='deletedClient'),
                   path('passport/add/<int:pk>/', views.add_passport, name='addPassport'),
+
+                  path('country/', views.view_country, name='viewCountry'),
+                  path('country/add/', views.add_country, name='addCountry'),
+                  path('country/edit/<int:pk>/', views.edit_country, name='editCountry'),
+                  path('country/delete/<int:pk>/', views.delete_country, name='deletedCountry'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

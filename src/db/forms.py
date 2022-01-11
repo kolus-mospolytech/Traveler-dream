@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from .models import Client, Employee, InternationalPassport
+from .models import Client, Employee, InternationalPassport, Country
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -142,3 +142,21 @@ class EditInternationalPassport(ModelForm):
         }
         fields = ['series', 'number', 'birth_date', 'birth_place', 'issue_date', 'expiry_date', 'authority', 'client']
         exclude = ['client']
+
+
+class AddCountry(ModelForm):
+    class Meta:
+        model = Country
+        widgets = {
+            'name': forms.TextInput(attrs={'required': 'required'}),
+        }
+        fields = '__all__'
+
+
+class EditCountry(ModelForm):
+    class Meta:
+        model = Country
+        widgets = {
+            'name': forms.TextInput(attrs={'required': 'required'}),
+        }
+        fields = '__all__'

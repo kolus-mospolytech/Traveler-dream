@@ -5,8 +5,8 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 
 from .forms import CreateEmployee, EditEmployee, AddClient, AddInternationalPassport, EditClient, \
-    EditInternationalPassport
-from .models import Client, InternationalPassport
+    EditInternationalPassport, AddCountry, EditCountry
+from .models import Client, InternationalPassport, Country
 from django.db.models import Q
 
 
@@ -253,3 +253,78 @@ def add_passport(request, pk):
         'form': form,
     }
     return render(request, 'Client/addInternationalPassport.html', context)
+
+
+@login_required(login_url='login')
+def view_country(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_box', '')
+        countries_list = Country.objects.filter(
+            Q(name__icontains=search_query)
+        )
+    else:
+        countries_list = Country.objects.all()
+
+    context = {
+        'countries_list': countries_list,
+    }
+    return render(request, 'Geo/Country/viewCountry.html', context)
+
+
+@login_required(login_url='login')
+def add_country(request):
+    form = AddCountry()
+    if request.method == 'POST':
+        form = AddCountry(request.POST, request.FILES)
+        if form.is_valid():
+            new_country = form.save(commit=False)
+            new_country.save()
+            messages.info(request, 'Запись успешна добавлена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewCountry')
+            elif 'save_and_edit' in request.POST:
+                return redirect('editCountry', pk=new_country.id)
+        else:
+            messages.info(request, form.errors)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'Geo/Country/addCountry.html', context)
+
+
+@login_required(login_url='login')
+def edit_country(request, pk):
+    country = Country.objects.get(id=pk)
+    form = EditCountry(instance=country)
+    if request.method == 'POST':
+        form = EditCountry(request.POST, request.FILES, instance=country)
+        if form.is_valid():
+            new_country = form.save(commit=False)
+            new_country.save()
+            messages.info(request, 'Запись успешна сохранена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewCountry')
+            elif 'save' in request.POST:
+                return redirect('editCountry', pk)
+        else:
+            messages.error(request, form.errors)
+
+    context = {
+        'employee': country,
+        'form': form,
+    }
+    return render(request, 'Geo/Country/editCountry.html', context)
+
+
+@login_required(login_url='login')
+def delete_country(request, pk):
+    country = Country.objects.get(id=pk)
+    if request.method == 'POST':
+        country.delete()
+        messages.info(request, 'Страна ' + country.name + ' успешно удалена')
+        return redirect('viewCountry')
+    context = {
+        'country': country,
+    }
+    return render(request, 'Geo/Country/deleteCountry.html', context)
