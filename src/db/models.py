@@ -31,9 +31,9 @@ class Employee(AbstractBaseUser, PermissionsMixin):
 
     username_validator = UnicodeUsernameValidator()
 
-    # name_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я]*$', 'Вы можете использовать только буквы')
+    name_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я]*$', 'Вы можете использовать только буквы')
 
-    # fullname_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я ]*$', 'Вы можете использовать только буквы')
+    fullname_validator = RegexValidator(r'^[a-zA-Z-А-Яа-я ]*$', 'Вы можете использовать только буквы')
 
     username = models.CharField(
         _('username'),
@@ -118,7 +118,7 @@ class Client(models.Model):
         verbose_name_plural = 'Клиенты'
 
 
-class InternationalPassport(models.Model):
+class Passport(models.Model):
     client = models.OneToOneField(Client, on_delete=models.CASCADE, db_column='client', verbose_name='Клиент')
     series = models.DecimalField('Серия', max_digits=2, decimal_places=0)
     number = models.DecimalField('Номер', max_digits=7, decimal_places=0)
@@ -223,6 +223,7 @@ class Agreement(models.Model):
     agent = models.ForeignKey(Employee, on_delete=models.CASCADE, db_column='employee', blank=True, null=True,
                                  verbose_name='Агент')
     client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, db_column='client', verbose_name='Клиент')
+    tourist_num = models.IntegerField('Количество туристов', default=1)
     country = models.ForeignKey(Country, on_delete=models.DO_NOTHING, db_column='country', verbose_name='Страна', default=1)
     cities = models.ManyToManyField(City, verbose_name='Города')
     creation_date = models.DateTimeField('Дата заключения', auto_now_add=True)
@@ -251,92 +252,92 @@ class Agreement(models.Model):
 #
 #     class Meta:
 #         unique_together = (('id', 'agreement', 'hotel'),)
-
-
-class Bill(models.Model):
-    creation_date = models.DateTimeField('Дата выписки', auto_now_add=True)
-    cost = models.DecimalField('Стоимость', max_digits=10, decimal_places=2)
-    payed = models.IntegerField('Оплачено')
-    payment_date = models.DateTimeField('Дата платежа', blank=True, null=True)
-
-    def __str__(self):
-        template = 'Чек №{0.id}'
-        return template.format(self)
-
-    class Meta:
-        verbose_name = 'Чек'
-        verbose_name_plural = 'Чеки'
-
-
-class Currency(models.Model):
-    name = models.CharField('Наименование', max_length=45)
-    code = models.CharField('Код', max_length=3)
-    rate = models.DecimalField('Курс', max_digits=5, decimal_places=2)
-    update_date = models.DateTimeField('Дата последнего изменения', auto_now=True)
-
-    def __str__(self):
-        template = '{0.name}'
-        return template.format(self)
-
-    class Meta:
-        verbose_name = 'Валюта'
-        verbose_name_plural = 'Валюты'
-
-
-class Contract(models.Model):
-    currency = models.ForeignKey(Currency, on_delete=models.CASCADE, db_column='currency', verbose_name='Валюта')
-    creation_date = models.DateTimeField('Дата создания', auto_now_add=True)
-    cost = models.DecimalField('Стоимость', max_digits=9, decimal_places=2)
-
-    def __str__(self):
-        template = 'Договор №{0.id} от {0.creation_date}'
-        return template.format(self)
-
-    class Meta:
-        verbose_name = 'Договор'
-        verbose_name_plural = 'Договоры'
-
-
-class Tourist(models.Model):
-    contract = models.OneToOneField(Contract, models.DO_NOTHING, db_column='contract', primary_key=True,
-                                    verbose_name='Договор')
-    client = models.ForeignKey(Client, models.DO_NOTHING, db_column='client', verbose_name='Клиент')
-
-    class Meta:
-        unique_together = (('contract', 'client'),)
-        verbose_name = 'Турист'
-        verbose_name_plural = 'Туристы'
-
-
-class ProcessStatus(models.Model):
-    name = models.CharField('Название', max_length=45)
-    description = models.CharField('Описание', max_length=255, blank=True, null=True)
-
-    def __str__(self):
-        template = '{0.name}'
-        return template.format(self)
-
-    class Meta:
-        verbose_name = 'Статус Процесса'
-        verbose_name_plural = 'Статусы Процесса'
-
-
-class BusinessProcess(models.Model):
-    agreement = models.ForeignKey(Agreement, on_delete=models.CASCADE, db_column='agreement',
-                                  verbose_name="Предварительное соглашение")
-    status = models.ForeignKey(ProcessStatus, models.DO_NOTHING, db_column='status', verbose_name="Статус")
-    contract = models.ForeignKey(Contract, models.DO_NOTHING, db_column='contract', blank=True, null=True,
-                                 verbose_name="Договор")
-    bill = models.ForeignKey(Bill, models.DO_NOTHING, db_column='bill', blank=True, null=True, verbose_name="Чек")
-    name = models.CharField('Название', max_length=45)
-    creation_date = models.DateTimeField('Дата создания', auto_now_add=True)
-    update_date = models.DateTimeField('Дата последнего изменения', auto_now=True)
-
-    def __str__(self):
-        template = 'Бизнес процесс {0.name}'
-        return template.format(self)
-
-    class Meta:
-        unique_together = (('id', 'agreement', 'status'),)
-        verbose_name = 'Бизнес процесс'
-        verbose_name_plural = 'Бизнес процессы'
+#
+#
+# class Bill(models.Model):
+#     creation_date = models.DateTimeField('Дата выписки', auto_now_add=True)
+#     cost = models.DecimalField('Стоимость', max_digits=10, decimal_places=2)
+#     payed = models.IntegerField('Оплачено')
+#     payment_date = models.DateTimeField('Дата платежа', blank=True, null=True)
+#
+#     def __str__(self):
+#         template = 'Чек №{0.id}'
+#         return template.format(self)
+#
+#     class Meta:
+#         verbose_name = 'Чек'
+#         verbose_name_plural = 'Чеки'
+#
+#
+# class Currency(models.Model):
+#     name = models.CharField('Наименование', max_length=45)
+#     code = models.CharField('Код', max_length=3)
+#     rate = models.DecimalField('Курс', max_digits=5, decimal_places=2)
+#     update_date = models.DateTimeField('Дата последнего изменения', auto_now=True)
+#
+#     def __str__(self):
+#         template = '{0.name}'
+#         return template.format(self)
+#
+#     class Meta:
+#         verbose_name = 'Валюта'
+#         verbose_name_plural = 'Валюты'
+#
+#
+# class Contract(models.Model):
+#     currency = models.ForeignKey(Currency, on_delete=models.CASCADE, db_column='currency', verbose_name='Валюта')
+#     creation_date = models.DateTimeField('Дата создания', auto_now_add=True)
+#     cost = models.DecimalField('Стоимость', max_digits=9, decimal_places=2)
+#
+#     def __str__(self):
+#         template = 'Договор №{0.id} от {0.creation_date}'
+#         return template.format(self)
+#
+#     class Meta:
+#         verbose_name = 'Договор'
+#         verbose_name_plural = 'Договоры'
+#
+#
+# class Tourist(models.Model):
+#     contract = models.OneToOneField(Contract, models.DO_NOTHING, db_column='contract', primary_key=True,
+#                                     verbose_name='Договор')
+#     client = models.ForeignKey(Client, models.DO_NOTHING, db_column='client', verbose_name='Клиент')
+#
+#     class Meta:
+#         unique_together = (('contract', 'client'),)
+#         verbose_name = 'Турист'
+#         verbose_name_plural = 'Туристы'
+#
+#
+# class ProcessStatus(models.Model):
+#     name = models.CharField('Название', max_length=45)
+#     description = models.CharField('Описание', max_length=255, blank=True, null=True)
+#
+#     def __str__(self):
+#         template = '{0.name}'
+#         return template.format(self)
+#
+#     class Meta:
+#         verbose_name = 'Статус Процесса'
+#         verbose_name_plural = 'Статусы Процесса'
+#
+#
+# class BusinessProcess(models.Model):
+#     agreement = models.ForeignKey(Agreement, on_delete=models.CASCADE, db_column='agreement',
+#                                   verbose_name="Предварительное соглашение")
+#     status = models.ForeignKey(ProcessStatus, models.DO_NOTHING, db_column='status', verbose_name="Статус")
+#     contract = models.ForeignKey(Contract, models.DO_NOTHING, db_column='contract', blank=True, null=True,
+#                                  verbose_name="Договор")
+#     bill = models.ForeignKey(Bill, models.DO_NOTHING, db_column='bill', blank=True, null=True, verbose_name="Чек")
+#     name = models.CharField('Название', max_length=45)
+#     creation_date = models.DateTimeField('Дата создания', auto_now_add=True)
+#     update_date = models.DateTimeField('Дата последнего изменения', auto_now=True)
+#
+#     def __str__(self):
+#         template = 'Бизнес процесс {0.name}'
+#         return template.format(self)
+#
+#     class Meta:
+#         unique_together = (('id', 'agreement', 'status'),)
+#         verbose_name = 'Бизнес процесс'
+#         verbose_name_plural = 'Бизнес процессы'

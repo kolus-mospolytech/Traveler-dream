@@ -35,23 +35,23 @@ UNLOCK TABLES;
 -- Dumping data for table `db_bill`
 --
 
-# LOCK TABLES `db_bill` WRITE;
-# /*!40000 ALTER TABLE `db_bill`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_bill`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `db_bill` WRITE;
+/*!40000 ALTER TABLE `db_bill`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `db_bill`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_businessprocess`
 --
 
-# LOCK TABLES `db_businessprocess` WRITE;
-# /*!40000 ALTER TABLE `db_businessprocess`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_businessprocess`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `db_businessprocess` WRITE;
+/*!40000 ALTER TABLE `db_businessprocess`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `db_businessprocess`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_city`
@@ -117,12 +117,12 @@ UNLOCK TABLES;
 -- Dumping data for table `db_contract`
 --
 
-# LOCK TABLES `db_contract` WRITE;
-# /*!40000 ALTER TABLE `db_contract`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_contract`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `db_contract` WRITE;
+/*!40000 ALTER TABLE `db_contract`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `db_contract`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_country`
@@ -145,12 +145,12 @@ UNLOCK TABLES;
 -- Dumping data for table `db_currency`
 --
 
-# LOCK TABLES `db_currency` WRITE;
-# /*!40000 ALTER TABLE `db_currency`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_currency`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `db_currency` WRITE;
+/*!40000 ALTER TABLE `db_currency`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `db_currency`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_employee`
@@ -251,12 +251,12 @@ UNLOCK TABLES;
 -- Dumping data for table `db_employee_user_permissions`
 --
 
-# LOCK TABLES `db_employee_user_permissions` WRITE;
-# /*!40000 ALTER TABLE `db_employee_user_permissions`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_employee_user_permissions`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `db_employee_user_permissions` WRITE;
+/*!40000 ALTER TABLE `db_employee_user_permissions`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `db_employee_user_permissions`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_feedingtype`
@@ -361,10 +361,10 @@ UNLOCK TABLES;
 -- Dumping data for table `db_preliminaryagreement`
 --
 
-LOCK TABLES `db_agreement` WRITE;
-/*!40000 ALTER TABLE `db_agreement`
+LOCK TABLES `db_preliminaryagreement` WRITE;
+/*!40000 ALTER TABLE `db_preliminaryagreement`
     DISABLE KEYS */;
-/*!40000 ALTER TABLE `db_agreement`
+/*!40000 ALTER TABLE `db_preliminaryagreement`
     ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,12 +372,12 @@ UNLOCK TABLES;
 -- Dumping data for table `db_processstatus`
 --
 
-# LOCK TABLES `db_processstatus` WRITE;
-# /*!40000 ALTER TABLE `db_processstatus`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_processstatus`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `db_processstatus` WRITE;
+/*!40000 ALTER TABLE `db_processstatus`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `db_processstatus`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_roomtype`
@@ -394,23 +394,23 @@ UNLOCK TABLES;
 -- Dumping data for table `db_tourhotel`
 --
 
-# LOCK TABLES `db_tourhotel` WRITE;
-# /*!40000 ALTER TABLE `db_tourhotel`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_tourhotel`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `db_tourhotel` WRITE;
+/*!40000 ALTER TABLE `db_tourhotel`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `db_tourhotel`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_tourist`
 --
 
-# LOCK TABLES `db_tourist` WRITE;
-# /*!40000 ALTER TABLE `db_tourist`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_tourist`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `db_tourist` WRITE;
+/*!40000 ALTER TABLE `db_tourist`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `db_tourist`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 /*!40103 SET TIME_ZONE = @OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;

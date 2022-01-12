@@ -37,6 +37,11 @@ AUTH_USER_MODEL = 'db.Employee'
 INSTALLED_APPS = [
     'db.apps.DbConfig',
 
+    'admin_interface',
+    'flat_responsive',
+    'flat',
+    'colorfield',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
