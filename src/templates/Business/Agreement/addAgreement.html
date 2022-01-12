@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% load group_tags %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="block_main">
+        <div class="block_info employee_card">
+            <h4>Добавить предварительное соглашение</h4>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="ul ul-info">
+                    <div class="li">
+                        <label>
+                            <span>Организация:</span>
+                            {{ form.organization }}
+                        </label>
+                    </div>
+                    {% if user|has_group:'Агент' %}
+                        <div class="li">
+                            <label>
+                                <span>Агент:</span>
+                                {{ form.agent }}
+                            </label>
+                        </div>
+                    {% endif %}
+                    <div class="li">
+                        <label>
+                            <span>Страна посещения:</span>
+                            {{ form.country }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Клиент:</span>
+                            {{ form.client }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Дата начала:</span>
+                            {{ form.trip_start }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <span>Дата конца:</span>
+                            {{ form.trip_end }}
+                        </label>
+                    </div>
+                <div class="li">
+                        <label>
+                            <span>Города посещения:</span>
+                            {{ form.cities }}
+                        </label>
+                    </div>
+                    <div class="li">
+                        <label>
+                            <input id="save_and_exit_id" name="save_and_exit" type="submit">
+                            <input id="save_and_edit_id" name="save_and_edit" type="submit">
+                        </label>
+                    </div>
+                    <div class="li li_hidden">
+                        {% for message in messages %}
+                            <span id="messages">{{ message }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </form>
+            <div class="ul ul-button">
+                <label class="button button_confirm" for="save_and_exit_id">Сохранить и закрыть</label>
+                <label class="button button_confirm" for="save_and_edit_id">Сохранить</label>
+                <a href="{% url 'viewAgreement' %}">
+                    <div class="button">Назад</div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

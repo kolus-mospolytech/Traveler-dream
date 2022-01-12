@@ -35,4 +35,9 @@ urlpatterns = [
                   path('hotel/add/', views.add_hotel, name='addHotel'),
                   path('hotel/edit/<int:pk>/', views.edit_hotel, name='editHotel'),
                   path('hotel/delete/<int:pk>/', views.delete_hotel, name='deletedHotel'),
+
+                  path('agreement/', views.view_agreement, name='viewAgreement'),
+                  path('agreement/add/', views.add_agreement, name='addAgreement'),
+                  path('agreement/edit/<int:pk>/', views.edit_agreement, name='editAgreement'),
+                  path('agreement/delete/<int:pk>/', views.delete_agreement, name='deletedAgreement'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

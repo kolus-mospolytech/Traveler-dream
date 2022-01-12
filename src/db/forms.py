@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from .models import Client, Employee, InternationalPassport, Country, City, Hotel
+from .models import Client, Employee, InternationalPassport, Country, City, Hotel, Agreement
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -204,3 +204,35 @@ class EditHotel(ModelForm):
             'address': forms.Textarea(attrs={'required': 'required'}),
         }
         fields = '__all__'
+
+
+class AddAgreement(ModelForm):
+    class Meta:
+        model = Agreement
+        widgets = {
+            'organization': forms.Select(attrs={'required': 'required'}),
+            'agent': forms.Select(attrs={}),
+            'client': forms.Select(attrs={'required': 'required'}),
+            'country': forms.Select(attrs={'required': 'required'}),
+            'cities': forms.SelectMultiple(attrs={'required': 'required'}),
+            'trip_start': forms.DateInput(attrs={'required': 'required'}),
+            'trip_end': forms.DateInput(attrs={'required': 'required'}),
+        }
+        fields = ['organization', 'agent', 'client', 'country', 'cities', 'trip_start', 'trip_end']
+        exclude = ['creation_date']
+
+
+class EditAgreement(ModelForm):
+    class Meta:
+        model = Agreement
+        widgets = {
+            'organization': forms.Select(attrs={'required': 'required'}),
+            'agent': forms.Select(attrs={}),
+            'client': forms.Select(attrs={'required': 'required'}),
+            'country': forms.Select(attrs={'required': 'required'}),
+            'cities': forms.SelectMultiple(attrs={'required': 'required'}),
+            'trip_start': forms.DateInput(attrs={'required': 'required'}),
+            'trip_end': forms.DateInput(attrs={'required': 'required'}),
+        }
+        fields = ['organization', 'agent', 'client', 'country', 'cities', 'trip_start', 'trip_end']
+        exclude = ['creation_date']

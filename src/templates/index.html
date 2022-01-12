@@ -13,10 +13,10 @@
                 {% elif user|has_group:'Менеджер' %}
                     {% include 'managerLinks.html' %}
 
-                {% elif user|has_group:'Agent' %}
+                {% elif user|has_group:'Агент' %}
                     {% include 'agentLinks.html' %}
 
-                {% elif user|has_group:'Accountant' %}
+                {% elif user|has_group:'Бухгалтер' %}
                     {% include 'accountantLinks.html' %}
                 {% endif %}
             </div>

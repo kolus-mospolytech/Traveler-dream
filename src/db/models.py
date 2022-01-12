@@ -217,12 +217,14 @@ class RoomType(models.Model):
         verbose_name_plural = 'Типы Комнат'
 
 
-class PreliminaryAgreement(models.Model):
+class Agreement(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='organization',
                                      verbose_name='Организация')
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, db_column='employee', blank=True, null=True,
+    agent = models.ForeignKey(Employee, on_delete=models.CASCADE, db_column='employee', blank=True, null=True,
                                  verbose_name='Агент')
     client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, db_column='client', verbose_name='Клиент')
+    country = models.ForeignKey(Country, on_delete=models.DO_NOTHING, db_column='country', verbose_name='Страна', default=1)
+    cities = models.ManyToManyField(City, verbose_name='Города')
     creation_date = models.DateTimeField('Дата заключения', auto_now_add=True)
     trip_start = models.DateField('Дата начала поездки')
     trip_end = models.DateField('Дата конца поездки')
@@ -236,19 +238,19 @@ class PreliminaryAgreement(models.Model):
         verbose_name_plural = 'Предварительные Соглашения'
 
 
-class TourHotel(models.Model):
-    agreement = models.ForeignKey(PreliminaryAgreement, on_delete=models.CASCADE, db_column='agreement',
-                                  verbose_name='Предварительно соглашение')
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, db_column='hotel', verbose_name='Отель')
-    room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE, db_column='room_type', verbose_name='Тип комнаты')
-    feeding_type = models.ForeignKey(FeedingType, on_delete=models.CASCADE, db_column='feeding_type',
-                                     verbose_name='Тип питания')
-    order = models.DecimalField('Порядок', max_digits=2, decimal_places=0)
-    start_date = models.DateTimeField('Дата заселения')
-    end_date = models.DateTimeField('Дата выселения')
-
-    class Meta:
-        unique_together = (('id', 'agreement', 'hotel'),)
+# class TourHotel(models.Model):
+#     agreement = models.ForeignKey(PreliminaryAgreement, on_delete=models.CASCADE, db_column='agreement',
+#                                   verbose_name='Предварительно соглашение')
+#     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, db_column='hotel', verbose_name='Отель')
+#     room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE, db_column='room_type', verbose_name='Тип комнаты')
+#     feeding_type = models.ForeignKey(FeedingType, on_delete=models.CASCADE, db_column='feeding_type',
+#                                      verbose_name='Тип питания')
+#     order = models.DecimalField('Порядок', max_digits=2, decimal_places=0)
+#     start_date = models.DateTimeField('Дата заселения')
+#     end_date = models.DateTimeField('Дата выселения')
+#
+#     class Meta:
+#         unique_together = (('id', 'agreement', 'hotel'),)
 
 
 class Bill(models.Model):
@@ -320,7 +322,7 @@ class ProcessStatus(models.Model):
 
 
 class BusinessProcess(models.Model):
-    agreement = models.ForeignKey(PreliminaryAgreement, on_delete=models.CASCADE, db_column='agreement',
+    agreement = models.ForeignKey(Agreement, on_delete=models.CASCADE, db_column='agreement',
                                   verbose_name="Предварительное соглашение")
     status = models.ForeignKey(ProcessStatus, models.DO_NOTHING, db_column='status', verbose_name="Статус")
     contract = models.ForeignKey(Contract, models.DO_NOTHING, db_column='contract', blank=True, null=True,

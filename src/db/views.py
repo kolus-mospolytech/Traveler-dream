@@ -5,8 +5,8 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 
 from .forms import CreateEmployee, EditEmployee, AddClient, AddInternationalPassport, EditClient, \
-    EditInternationalPassport, AddCountry, EditCountry, AddCity, EditCity, AddHotel, EditHotel
-from .models import Client, InternationalPassport, Country, City, Hotel
+    EditInternationalPassport, AddCountry, EditCountry, AddCity, EditCity, AddHotel, EditHotel, AddAgreement
+from .models import Client, InternationalPassport, Country, City, Hotel, Agreement
 from django.db.models import Q
 
 
@@ -469,6 +469,81 @@ def edit_hotel(request, pk):
 
 @login_required(login_url='login')
 def delete_hotel(request, pk):
+    hotel = Hotel.objects.get(id=pk)
+    if request.method == 'POST':
+        hotel.delete()
+        messages.info(request, 'Отель ' + hotel.name + ' успешно удален')
+        return redirect('viewHotel')
+    context = {
+        'hotel': hotel,
+    }
+    return render(request, 'Geo/Hotel/deleteHotel.html', context)
+
+@login_required(login_url='login')
+def view_agreement(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('search_box', '')
+        agreements_list = Agreement.objects.all().filter(
+            Q(id__icontains=search_query) |
+            Q(creation_date__icontains=search_query) |
+            Q(organization__name__icontains=search_query)
+        )
+    else:
+        agreements_list = Agreement.objects.all()
+
+    context = {
+        'agreements_list': agreements_list,
+    }
+    return render(request, 'Business/Agreement/viewAgreement.html', context)
+
+
+@login_required(login_url='login')
+def add_agreement(request):
+    form = AddAgreement()
+    if request.method == 'POST':
+        form = AddAgreement(request.POST, request.FILES)
+        if form.is_valid():
+            new_agreement = form.save(commit=False)
+            new_agreement.save()
+            messages.info(request, 'Запись успешна добавлена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewAgreement')
+            elif 'save_and_edit' in request.POST:
+                return redirect('editAgreement', pk=new_agreement.id)
+        else:
+            messages.info(request, form.errors)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'Business/Agreement/addAgreement.html', context)
+
+
+@login_required(login_url='login')
+def edit_agreement(request, pk):
+    hotel = Hotel.objects.get(id=pk)
+    form = EditHotel(instance=hotel)
+    if request.method == 'POST':
+        form = EditHotel(request.POST, request.FILES, instance=hotel)
+        if form.is_valid():
+            new_hotel = form.save(commit=False)
+            new_hotel.save()
+            messages.info(request, 'Запись успешна сохранена')
+            if 'save_and_exit' in request.POST:
+                return redirect('viewHotel')
+            elif 'save' in request.POST:
+                return redirect('editHotel', pk)
+        else:
+            messages.error(request, form.errors)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'Geo/Hotel/editHotel.html', context)
+
+
+@login_required(login_url='login')
+def delete_agreement(request, pk):
     hotel = Hotel.objects.get(id=pk)
     if request.method == 'POST':
         hotel.delete()
