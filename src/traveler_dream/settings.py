@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'db.apps.DbConfig',
 
     'admin_interface',
-    'flat_responsive',
-    'flat',
     'colorfield',
 
     'django.contrib.admin',
@@ -49,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SILENCED_SYSTEM_CHECKS = ['security.W019']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -129,19 +130,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/static/'
-
-MEDIA_URL = '/static/media/'
-
-if DEBUG:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "static/static"),
-        os.path.join(BASE_DIR, "static/media"),
-    ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/static')
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+MEDIA_URL = '/media/'
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/static')
+STATIC_URL = '/static/'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

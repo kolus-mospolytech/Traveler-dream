@@ -5,3 +5,4 @@ src/traveler_dream/media
 src/db/migrations/*.py
 !src/db/migrations/__init__.py
 src/static/media/avatars
+src/static

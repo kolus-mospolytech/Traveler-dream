@@ -324,10 +324,10 @@ UNLOCK TABLES;
 -- Dumping data for table `db_internationalpassport`
 --
 
-LOCK TABLES `db_internationalpassport` WRITE;
-/*!40000 ALTER TABLE `db_internationalpassport`
+LOCK TABLES `db_passport` WRITE;
+/*!40000 ALTER TABLE `db_passport`
     DISABLE KEYS */;
-INSERT INTO `db_internationalpassport`
+INSERT INTO `db_passport`
 VALUES (1, 51, 9874563, '1977-12-02', 'Курск', '2010-10-02', '2020-10-01', 'УФМС', 1),
        (2, 51, 1478529, '1980-05-25', 'Курск', '2013-03-29', '2023-03-28', 'УФМС', 2),
        (3, 51, 2589631, '1998-09-28', 'Курск', '2017-02-28', '2027-02-27', 'УФМС', 3),
@@ -338,7 +338,7 @@ VALUES (1, 51, 9874563, '1977-12-02', 'Курск', '2010-10-02', '2020-10-01', 
        (8, 49, 9873215, '1987-09-14', 'Краснодар', '2017-06-16', '2027-06-15', 'УФМС', 8),
        (9, 49, 2563214, '1988-04-25', 'Краснодар', '2010-12-05', '2020-12-04', 'УФМС', 9),
        (10, 49, 3652365, '1989-04-22', 'Краснодар', '2010-12-05', '2020-12-04', 'УФМС', 10);
-/*!40000 ALTER TABLE `db_internationalpassport`
+/*!40000 ALTER TABLE `db_passport`
     ENABLE KEYS */;
 UNLOCK TABLES;
 
