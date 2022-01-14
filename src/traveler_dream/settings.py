@@ -34,6 +34,7 @@ AUTH_USER_MODEL = 'stuff.Employee'
 
 INSTALLED_APPS = [
     'stuff.apps.StuffConfig',
+    'clients.apps.ClientsConfig',
 
     'phonenumber_field',
 

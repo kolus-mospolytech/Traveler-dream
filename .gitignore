@@ -14,3 +14,6 @@ src/static
 src/stuff/migrations/*.py
 !src/stuff/migrations/__init__.py
 
+src/clients/migrations/*.py
+!src/clients/migrations/__init__.py
+
