@@ -9,4 +9,6 @@ django-nested-admin
 django-admin-interface
 django-tabbed-admin
 sorl-thumbnail
+django-phonenumber-field[phonenumbers]
+# django-admin-thumbnails
 python-decouple
