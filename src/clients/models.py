@@ -13,8 +13,8 @@ class Status(models.Model):
         return template.format(self)
 
     class Meta:
-        verbose_name = 'Статус Клиента'
-        verbose_name_plural = 'Статусы Клиентов'
+        verbose_name = 'Статус клиента'
+        verbose_name_plural = 'Статусы клиента'
 
 
 class Client(models.Model):
