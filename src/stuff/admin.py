@@ -4,13 +4,12 @@ from django.contrib.auth.models import Group
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import Employee, Position, Organization
-import admin_thumbnails
 
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
     search_fields = ('name', 'address', 'phone', 'mail',)
-    ordering = ('name', 'address', 'phone', 'mail',)
+    ordering = ('name',)
 
 
 @admin.register(Position)
