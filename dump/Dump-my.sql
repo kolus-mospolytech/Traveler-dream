@@ -70,27 +70,27 @@ UNLOCK TABLES;
 # UNLOCK TABLES;
 
 --
--- Dumping data for table `db_city`
+-- Dumping data for table `hotels_city`
 --
 
-# LOCK TABLES `db_city` WRITE;
-# /*!40000 ALTER TABLE `db_city`
-#     DISABLE KEYS */;
-# INSERT INTO `db_city`
-# VALUES (1, 'Берлин', 1),
-#        (2, 'Баден-Баден', 1),
-#        (3, 'Дрезден', 1),
-#        (4, 'Милан', 2),
-#        (5, 'Флоренция', 2),
-#        (6, 'Рим', 2),
-#        (7, 'Мадрид', 3),
-#        (8, 'Малага', 3),
-#        (9, 'Валенсия', 3),
-#        (10, 'Любляна', 4),
-#        (11, 'Свети Влас', 5);
-# /*!40000 ALTER TABLE `db_city`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `hotels_city` WRITE;
+/*!40000 ALTER TABLE `hotels_city`
+    DISABLE KEYS */;
+INSERT INTO `hotels_city`
+VALUES (1, 'Берлин', 1),
+       (2, 'Баден-Баден', 1),
+       (3, 'Дрезден', 1),
+       (4, 'Милан', 2),
+       (5, 'Флоренция', 2),
+       (6, 'Рим', 2),
+       (7, 'Мадрид', 3),
+       (8, 'Малага', 3),
+       (9, 'Валенсия', 3),
+       (10, 'Любляна', 4),
+       (11, 'Свети Влас', 5);
+/*!40000 ALTER TABLE `hotels_city`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `clients_client`
@@ -141,21 +141,21 @@ UNLOCK TABLES;
 # UNLOCK TABLES;
 
 --
--- Dumping data for table `db_country`
+-- Dumping data for table `hotels_country`
 --
 
-# LOCK TABLES `db_country` WRITE;
-# /*!40000 ALTER TABLE `db_country`
-#     DISABLE KEYS */;
-# INSERT INTO `db_country`
-# VALUES (1, 'Германия'),
-#        (2, 'Италия'),
-#        (3, 'Испания'),
-#        (4, 'Словения'),
-#        (5, 'Болгария');
-# /*!40000 ALTER TABLE `db_country`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `hotels_country` WRITE;
+/*!40000 ALTER TABLE `hotels_country`
+    DISABLE KEYS */;
+INSERT INTO `hotels_country`
+VALUES (1, 'Германия'),
+       (2, 'Италия'),
+       (3, 'Испания'),
+       (4, 'Словения'),
+       (5, 'Болгария');
+/*!40000 ALTER TABLE `hotels_country`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_currency`
@@ -286,55 +286,55 @@ UNLOCK TABLES;
 # UNLOCK TABLES;
 
 --
--- Dumping data for table `db_hotel`
+-- Dumping data for table `hotels_hotel`
 --
 
-# LOCK TABLES `db_hotel` WRITE;
-# /*!40000 ALTER TABLE `db_hotel`
-#     DISABLE KEYS */;
-# INSERT INTO `db_hotel`
-# VALUES (1, 'ECONTEL HOTEL Berlin***',
-#         'Sömmeringstraße 24-Sömmeringstraße 24-26, Шарлоттенбург-Вильмерсдорф, 10589 Берлин, Германия', 1, 2),
-#        (2, 'Leonardo Hotel Berlin***', 'Wilmersdorfer Str. 32, Шарлоттенбург-Вильмерсдорф, 10585 Берлин, Германия', 1,
-#         2),
-#        (3, 'Sheraton Berlin Grand Hotel Esplanade*****', 'Lützowufer 15, Митте, 10785 Берлин, Германия', 1, 4),
-#        (4, 'Radisson Blu Badischer Hof Hotel', 'Lange Str. 47, 76530 Baden-Baden, Германия', 2, 3),
-#        (5, 'Leonardo Royal Hotel Baden- Baden', 'Falkenstr. 2, 76530 Баден-Баден, Германия', 2, 3),
-#        (6, 'Cityherberge', 'Lingnerallee 3, 01069 Дрезден, Германия', 3, 1),
-#        (7, 'Holiday Inn Express Dresden City Centre', 'Dr-Kuelz Ring 15a, Старый город, 01067 Дрезден, Германия', 3, 2),
-#        (8, 'Hotel Da Vinci', 'Via Senigallia 6, 20161 Милан, Италия', 4, 3),
-#        (9, 'Hotel Berna', 'Via Napo Torriani 18, Центральный вокзал, 20124 Милан, Италия', 4, 3),
-#        (10, 'Hotel Royal ', 'Via delle Ruote 52, 50129 Флоренция, Италия', 5, 2),
-#        (11, 'Palazzo San Lorenzo', '13 Borgo San Lorenzo, Сан-Лоренцо, 50123 Флоренция, Италия', 5, 5),
-#        (12, 'Hotel Gabriella', 'Via Palestro 88, Вокзал Термини, 00185 Рим, Италия', 6, 2),
-#        (13, 'Grand Hotel Plaza', 'Via del Corso 126, Спанья, 00186 Рим, Италия', 6, 4),
-#        (14, 'Eurostars Madrid Tower', 'Castellana, 259B, Фуэнкарраль – Эль-Пардо, 28046 Мадрид, Испания', 7, 4),
-#        (15, 'Holiday Inn Express Málaga Airport',
-#         'Avenida de Velazquez 294, Exit 3B Road MA-21, Churriana, 29004 Малага, Испания', 8, 2),
-#        (16, 'Hotel Valencia Center', 'Avenida de Francia, 33, Camins al Grau, 46023 Валенсия, Испания', 9, 3),
-#        (17, 'City Hotel Ljubljana', 'Dalmatinova Street 15, 1000 Любляна, Словения', 10, 2),
-#        (18, 'Urban Hotel', '4 Štefanova ulica, 1000 Любляна, Словения', 10, 3),
-#        (19, 'Комплекс Райский сад', 'Центральной дороги, 8250 Свети-Влас, Болгария', 11, 4);
-# /*!40000 ALTER TABLE `db_hotel`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `hotels_hotel` WRITE;
+/*!40000 ALTER TABLE `hotels_hotel`
+    DISABLE KEYS */;
+INSERT INTO `hotels_hotel`
+VALUES (1, 'ECONTEL HOTEL Berlin***',
+        'Sömmeringstraße 24-Sömmeringstraße 24-26, Шарлоттенбург-Вильмерсдорф, 10589 Берлин, Германия', 1, 2),
+       (2, 'Leonardo Hotel Berlin***', 'Wilmersdorfer Str. 32, Шарлоттенбург-Вильмерсдорф, 10585 Берлин, Германия', 1,
+        2),
+       (3, 'Sheraton Berlin Grand Hotel Esplanade*****', 'Lützowufer 15, Митте, 10785 Берлин, Германия', 1, 4),
+       (4, 'Radisson Blu Badischer Hof Hotel', 'Lange Str. 47, 76530 Baden-Baden, Германия', 2, 3),
+       (5, 'Leonardo Royal Hotel Baden- Baden', 'Falkenstr. 2, 76530 Баден-Баден, Германия', 2, 3),
+       (6, 'Cityherberge', 'Lingnerallee 3, 01069 Дрезден, Германия', 3, 1),
+       (7, 'Holiday Inn Express Dresden City Centre', 'Dr-Kuelz Ring 15a, Старый город, 01067 Дрезден, Германия', 3, 2),
+       (8, 'Hotel Da Vinci', 'Via Senigallia 6, 20161 Милан, Италия', 4, 3),
+       (9, 'Hotel Berna', 'Via Napo Torriani 18, Центральный вокзал, 20124 Милан, Италия', 4, 3),
+       (10, 'Hotel Royal ', 'Via delle Ruote 52, 50129 Флоренция, Италия', 5, 2),
+       (11, 'Palazzo San Lorenzo', '13 Borgo San Lorenzo, Сан-Лоренцо, 50123 Флоренция, Италия', 5, 5),
+       (12, 'Hotel Gabriella', 'Via Palestro 88, Вокзал Термини, 00185 Рим, Италия', 6, 2),
+       (13, 'Grand Hotel Plaza', 'Via del Corso 126, Спанья, 00186 Рим, Италия', 6, 4),
+       (14, 'Eurostars Madrid Tower', 'Castellana, 259B, Фуэнкарраль – Эль-Пардо, 28046 Мадрид, Испания', 7, 4),
+       (15, 'Holiday Inn Express Málaga Airport',
+        'Avenida de Velazquez 294, Exit 3B Road MA-21, Churriana, 29004 Малага, Испания', 8, 2),
+       (16, 'Hotel Valencia Center', 'Avenida de Francia, 33, Camins al Grau, 46023 Валенсия, Испания', 9, 3),
+       (17, 'City Hotel Ljubljana', 'Dalmatinova Street 15, 1000 Любляна, Словения', 10, 2),
+       (18, 'Urban Hotel', '4 Štefanova ulica, 1000 Любляна, Словения', 10, 3),
+       (19, 'Комплекс Райский сад', 'Центральной дороги, 8250 Свети-Влас, Болгария', 11, 4);
+/*!40000 ALTER TABLE `hotels_hotel`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Dumping data for table `db_hoteltype`
+-- Dumping data for table `hotels_hoteltype`
 --
 
-# LOCK TABLES `db_hoteltype` WRITE;
-# /*!40000 ALTER TABLE `db_hoteltype`
-#     DISABLE KEYS */;
-# INSERT INTO `db_hoteltype`
-# VALUES (1, '1', NULL),
-#        (2, '3', NULL),
-#        (3, '4', NULL),
-#        (4, '5', NULL),
-#        (5, 'Апартаменты', NULL);
-# /*!40000 ALTER TABLE `db_hoteltype`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `hotels_hoteltype` WRITE;
+/*!40000 ALTER TABLE `hotels_hoteltype`
+    DISABLE KEYS */;
+INSERT INTO `hotels_hoteltype`
+VALUES (1, '1', NULL),
+       (2, '3', NULL),
+       (3, '4', NULL),
+       (4, '5', NULL),
+       (5, 'Апартаменты', NULL);
+/*!40000 ALTER TABLE `hotels_hoteltype`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `clients_passport`
