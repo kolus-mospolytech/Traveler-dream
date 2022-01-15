@@ -19,3 +19,6 @@ src/clients/migrations/*.py
 
 src/hotels/migrations/*.py
 !src/hotels/migrations/__init__.py
+
+src/business/migrations/*.py
+!src/business/migrations/__init__.py

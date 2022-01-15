@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'stuff.apps.StuffConfig',
     'clients.apps.ClientsConfig',
     'hotels.apps.HotelsConfig',
+    'business.apps.BusinessConfig',
 
     'phonenumber_field',
 
