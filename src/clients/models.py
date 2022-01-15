@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class Status(models.Model):
     name = models.CharField('Название', max_length=45)
-    description = models.CharField('Описание', max_length=255, blank=True, null=True)
+    description = models.TextField('Описание', max_length=255, blank=True, null=True)
 
     def __str__(self):
         template = '{0.name}'
