@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 
@@ -32,11 +33,17 @@ class CustomUserAdmin(UserAdmin):
     model = Employee
     list_display = ('name', 'organization', 'groups', 'username', 'is_active',)
     list_filter = ('organization', 'groups', 'is_active',)
-    search_fields = ('name', 'organization', 'groups', 'username', 'is_active',)
+    search_fields = ('name', 'organization__name', 'username', 'is_active',)
     ordering = ('name', 'organization',)
     filter_horizontal = ()
     autocomplete_fields = ('organization', 'groups',)
     readonly_fields = ('image_tag',)
+
+    def get_search_results(self, request, queryset, search_term):
+        print(request)
+        queryset = get_user_model().objects.filter(groups=4)
+        results = super().get_search_results(request, queryset, search_term)
+        return results
 
     def get_fieldsets(self, request, obj=None):
         if request.user.is_superuser:

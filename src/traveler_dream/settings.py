@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'business.apps.BusinessConfig',
 
     'phonenumber_field',
+    'ordered_model',
 
     'django.contrib.admin',
     'django.contrib.auth',

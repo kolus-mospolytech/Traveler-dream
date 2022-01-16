@@ -104,8 +104,12 @@ class Employee(AbstractBaseUser, PermissionsMixin):
 
     image_tag.short_description = 'Превью фото'
 
+    def for_search(self):
+        template = '{0.organization.name}, {0.name}'
+        return template.format(self)
+
     def __str__(self):
-        template = '{0.name}'
+        template = '{0.organization.name}, {0.name}'
         return template.format(self)
 
     class Meta:

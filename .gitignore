@@ -2,6 +2,8 @@
 src/.env
 _scraps
 
+src/traveler_dream/static
+src/traveler_dream/media
 src/traveler_dream/media/avatars/*
 !/src/traveler_dream/media/avatars/look.png
 !/src/traveler_dream/media/avatars/Фото_Иванов.jpg

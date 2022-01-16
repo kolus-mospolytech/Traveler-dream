@@ -10,5 +10,7 @@ django-admin-interface
 django-tabbed-admin
 sorl-thumbnail
 django-phonenumber-field[phonenumbers]
+django-ordered-model
+# django-autocomplete-light
 # django-admin-thumbnails
 python-decouple
