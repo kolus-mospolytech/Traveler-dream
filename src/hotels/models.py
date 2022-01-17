@@ -20,11 +20,10 @@ class City(models.Model):
     name = models.CharField('Название', max_length=45)
 
     def __str__(self):
-        template = '{0.name}'
+        template = '{0.country.name}, {0.name}'
         return template.format(self)
 
     class Meta:
-        unique_together = (('id', 'country'),)
         verbose_name = 'Город'
         verbose_name_plural = 'Города'
 

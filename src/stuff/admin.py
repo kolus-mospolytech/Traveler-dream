@@ -40,8 +40,10 @@ class CustomUserAdmin(UserAdmin):
     readonly_fields = ('image_tag',)
 
     def get_search_results(self, request, queryset, search_term):
-        print(request)
-        queryset = get_user_model().objects.filter(groups=4)
+        if request.GET.get('field_name', '') == 'agent':
+            queryset = get_user_model().objects.filter(groups=4)
+        elif request.GET.get('field_name', '') == 'manager':
+            queryset = get_user_model().objects.filter(groups=1)
         results = super().get_search_results(request, queryset, search_term)
         return results
 

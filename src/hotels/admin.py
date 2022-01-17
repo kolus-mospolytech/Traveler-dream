@@ -12,7 +12,7 @@ class CountryAdmin(admin.ModelAdmin):
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     list_display = ('name', 'country',)
-    search_fields = ('name',)
+    search_fields = ('name', 'country__name',)
     ordering = ('name',)
     autocomplete_fields = ('country',)
 
