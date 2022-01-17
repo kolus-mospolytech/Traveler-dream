@@ -84,8 +84,12 @@ class Contract(models.Model):
     cities = models.ManyToManyField(City, through='TourPoint', verbose_name='Города')
     persons = models.PositiveIntegerField('Количество туристов')
     tourists = models.ManyToManyField(Client, through='Tourist', related_name='tourists', verbose_name='Туристы')
-    currency = models.ForeignKey(Currency, on_delete=models.CASCADE, db_column='currency', verbose_name='Валюта')
-    cost = models.DecimalField('Стоимость', max_digits=9, decimal_places=2)
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE, db_column='currency', verbose_name='Валюта',
+                                 null=True, blank=True)
+    cost = models.DecimalField('Стоимость', max_digits=9, decimal_places=2, null=True, blank=True)
+    ready = models.BooleanField('Проведено',
+                                help_text='Провести оформление, после проведения редактирование недоступно',
+                                default=False)
     creation_date = models.DateTimeField('Дата заключения', auto_now_add=True)
     trip_start = models.DateField('Дата начала поездки')
     trip_end = models.DateField('Дата конца поездки')
