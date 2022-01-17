@@ -24,3 +24,6 @@ src/hotels/migrations/*.py
 
 src/business/migrations/*.py
 !src/business/migrations/__init__.py
+
+src/notifications/migrations/*.py
+!src/notifications/migrations/__init__.py

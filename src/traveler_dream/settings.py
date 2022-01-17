@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'clients.apps.ClientsConfig',
     'hotels.apps.HotelsConfig',
     'business.apps.BusinessConfig',
+    'notifications.apps.NotificationsConfig'
 
     'phonenumber_field',
     'ordered_model',
