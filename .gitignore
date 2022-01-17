@@ -1,6 +1,7 @@
 .idea
 src/.env
 _scraps
+dump/dumpus
 
 src/traveler_dream/static
 src/traveler_dream/media

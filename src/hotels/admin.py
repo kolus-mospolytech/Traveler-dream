@@ -27,7 +27,7 @@ class HotelTypeAdmin(admin.ModelAdmin):
 class HotelAdmin(admin.ModelAdmin):
     list_display = ('name', 'city', 'type',)
     list_filter = ('type',)
-    search_fields = ('name', 'city',)
+    search_fields = ('name', 'city__name',)
     ordering = ('name',)
     autocomplete_fields = ('city', 'type',)
 

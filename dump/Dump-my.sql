@@ -158,15 +158,33 @@ VALUES (1, 'Германия'),
 UNLOCK TABLES;
 
 --
--- Dumping data for table `db_currency`
+-- Dumping data for table `business_currency`
 --
 
-# LOCK TABLES `db_currency` WRITE;
-# /*!40000 ALTER TABLE `db_currency`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_currency`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `business_currency` WRITE;
+/*!40000 ALTER TABLE `business_currency`
+    DISABLE KEYS */;
+INSERT INTO `business_currency`
+VALUES (1, 'Австралийский доллар', 'AUD', 55.00, '2022-01-17 13:20:43'),
+       (2, 'Азербайджанский манат', 'AZN', 44.00, '2022-01-17 13:20:43'),
+       (3, 'Белорусский рубль', 'BYN', 29.00, '2022-01-17 13:20:43'),
+       (4, 'Болгарский лев', 'BGN', 44.00, '2022-01-17 13:20:43'),
+       (5, 'Бразильский реал', 'BRL', 13.00, '2022-01-17 13:20:43'),
+       (6, 'Датская крона', 'DKK', 11.00, '2022-01-17 13:20:43'),
+       (7, 'Доллар США', 'USD', 75.00, '2022-01-17 13:20:43'),
+       (8, 'Евро', 'EUR', 86.00, '2022-01-17 13:20:43'),
+       (9, 'Канадский доллар', 'CAD', 60.00, '2022-01-17 13:20:43'),
+       (10, 'Китайский юань', 'CNY', 11.00, '2022-01-17 13:20:43'),
+       (11, 'Новый туркменский манат', 'TMT', 21.00, '2022-01-17 13:20:43'),
+       (12, 'Польский злотый', 'PLN', 19.00, '2022-01-17 13:20:43'),
+       (13, 'Румынский лей', 'RON', 17.00, '2022-01-17 13:20:43'),
+       (14, 'СДР (специальные права заимствования)', 'XDR', 106.00, '2022-01-17 13:20:43'),
+       (15, 'Сингапурский доллар', 'SGD', 56.00, '2022-01-17 13:20:43'),
+       (16, 'Фунт стерлингов Соединенного королевства', 'GBP', 104.00, '2022-01-17 13:20:43'),
+       (17, 'Швейцарский франк', 'CHF', 83.00, '2022-01-17 13:20:43');
+/*!40000 ALTER TABLE `business_currency`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_employee`
@@ -176,8 +194,8 @@ LOCK TABLES `stuff_employee` WRITE;
 /*!40000 ALTER TABLE `stuff_employee`
     DISABLE KEYS */;
 INSERT INTO `stuff_employee`
-VALUES (1, 'pbkdf2_sha256$260000$jFXMZ0d2GEGLLMWyCRjz5s$4tasx9w4wknxxAL51uVeZBn7KZYQm9sIS7MDncCJtdg=',
-        '2021-12-07 13:15:53.847383', 1, 'root', 'Админов А.А.', 'Админов Админ Админович', 'Мужчина', '2021-12-06',
+VALUES (1, 'pbkdf2_sha256$320000$2bu1PTA7cutPZLpFRYvHgt$VJbVnLnchHddbc6zBojaxgI1NknYMYAK9UFbndzn5qs=',
+        '2022-01-14 13:51:37.605380', 1, 'root', 'Админов А.А.', 'Админов Админ Админович', 'Мужчина', '2021-12-06',
         'avatars/look.png', 1, 1, '2021-12-05 22:05:14.280086', 3, 1),
        (2, 'pbkdf2_sha256$260000$nuQvslQdfwcc352uiZRqLO$aFcDTocVUp7aVOhf8DpLMc+L6wyVgg15dbQ3S2qp8Cg=',
         '2021-12-07 13:15:31.485921', 0, 'ZEwTY6zA', 'Иванов А.А.', 'Иванов Александр Александрович', 'Мужчина',
@@ -226,9 +244,7 @@ VALUES (1, 'pbkdf2_sha256$260000$jFXMZ0d2GEGLLMWyCRjz5s$4tasx9w4wknxxAL51uVeZBn7
         '2021-12-06 01:29:43', 4, 2),
        (17, 'pbkdf2_sha256$260000$uuj8PMhYxR3Dx4AiHmDWYu$gszWJfTRs65qBjJYi4BpCrbODZDnuLYDS/XBjCncpxo=', null, 0,
         'UGP9v6hR', 'Виценко М. А.', 'Виценко Маргарита Александровна', 'Женщина', '1998-06-01', '', 1, 1,
-        '2021-12-06 01:29:43', 4, 2),
-       (18, 'pbkdf2_sha256$260000$LAOLjxiXCnUYEGCR6kquQP$kgG2TEjsv0oDJgJHcVguNTrV4x2nl2GVIVYld+zoe+M=', null, 0,
-        'kolus', 'kolus', 'kolus', 'Мужчина', '2021-12-07', '', 1, 1, '2021-12-07 13:16:47.970716', 3, 1);
+        '2021-12-06 01:29:43', 4, 2);
 /*!40000 ALTER TABLE `stuff_employee`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -275,15 +291,19 @@ UNLOCK TABLES;
 # UNLOCK TABLES;
 
 --
--- Dumping data for table `db_feedingtype`
+-- Dumping data for table `hotels_feedingtype`
 --
 
-# LOCK TABLES `db_feedingtype` WRITE;
-# /*!40000 ALTER TABLE `db_feedingtype`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_feedingtype`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `hotels_feedingtype` WRITE;
+/*!40000 ALTER TABLE `hotels_feedingtype`
+    DISABLE KEYS */;
+INSERT INTO `hotels_feedingtype`
+VALUES (1, 'Без питания', ''),
+       (2, 'Двухразовое', ''),
+       (3, 'Трехразовое', '');
+/*!40000 ALTER TABLE `hotels_feedingtype`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `hotels_hotel`
@@ -385,26 +405,39 @@ UNLOCK TABLES;
 # UNLOCK TABLES;
 
 --
--- Dumping data for table `db_processstatus`
+-- Dumping data for table `business_processstatus`
 --
 
-# LOCK TABLES `db_processstatus` WRITE;
-# /*!40000 ALTER TABLE `db_processstatus`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_processstatus`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `business_processstatus` WRITE;
+/*!40000 ALTER TABLE `business_processstatus`
+    DISABLE KEYS */;
+INSERT INTO `business_processstatus`
+VALUES (1, 'Начато оформление соглашения', null),
+       (2, 'Соглашение оформлено', null),
+       (3, 'Начато оформление договора', null),
+       (4, 'Договор оформлен', null),
+       (5, 'Выставлен счет', null),
+       (6, 'Счет оплачен', null),
+       (7, 'Составлен ваучер', null);
+/*!40000 ALTER TABLE `business_processstatus`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Dumping data for table `db_roomtype`
+-- Dumping data for table `hotels_roomtype`
 --
 
-# LOCK TABLES `db_roomtype` WRITE;
-# /*!40000 ALTER TABLE `db_roomtype`
-#     DISABLE KEYS */;
-# /*!40000 ALTER TABLE `db_roomtype`
-#     ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `hotels_roomtype` WRITE;
+/*!40000 ALTER TABLE `hotels_roomtype`
+    DISABLE KEYS */;
+INSERT INTO `hotels_roomtype`
+VALUES (3, 'Одноместный', ''),
+       (4, 'Двухместный', ''),
+       (5, 'Люкс', ''),
+       (6, 'Мегалюкс', '');
+/*!40000 ALTER TABLE `hotels_roomtype`
+    ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `db_tourhotel`

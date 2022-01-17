@@ -64,7 +64,7 @@ class Currency(models.Model):
     update_date = models.DateTimeField('Дата последнего изменения', auto_now=True)
 
     def __str__(self):
-        template = '{0.name}'
+        template = '{0.code}, {0.name}'
         return template.format(self)
 
     class Meta:
@@ -98,6 +98,15 @@ class Contract(models.Model):
         template = 'Договор №{0.id} от {0.creation_date}'
         return template.format(self)
 
+    def clean(self):
+        if self.agent and (self.agent.organization != self.organization):
+            raise ValidationError('Агент не может быть из другой организации')
+        if self.ready and not (self.currency and self.cost):
+            self.ready = not self.ready
+            raise ValidationError('Нельзя провести, пока валюта и стоимость не заполнены')
+        if self.trip_start > self.trip_end:
+            raise ValidationError('Дата начала поездки не может быть позже даты окончания')
+
     class Meta:
         verbose_name = 'Договор'
         verbose_name_plural = 'Договоры'
@@ -116,22 +125,29 @@ class TourPoint(OrderedModel):
     feeding_type = models.ForeignKey(FeedingType, on_delete=models.CASCADE, db_column='feeding_type',
                                      verbose_name='Тип питания', blank=True, null=True)
     order = models.PositiveIntegerField('Порядок')
-    start_date = models.DateTimeField('Дата заселения', blank=True, null=True)
-    end_date = models.DateTimeField('Дата выселения', blank=True, null=True)
+    start_date = models.DateField('Дата заселения', blank=True, null=True)
+    end_date = models.DateField('Дата выселения', blank=True, null=True)
 
     order_with_respect_to = 'agreement'
     order_field_name = 'order'
 
     class Meta:
         ordering = ('order',)
+        verbose_name = 'Город посещения'
+        verbose_name_plural = 'Города посещения'
 
 
-class Tourist(models.Model):
+class Tourist(OrderedModel):
     contract = models.OneToOneField(Contract, models.CASCADE, db_column='contract', primary_key=True,
                                     verbose_name='Договор')
     client = models.ForeignKey(Client, models.CASCADE, db_column='client', verbose_name='Клиент')
+    order = models.PositiveIntegerField('Порядок')
+
+    order_with_respect_to = 'agreement'
+    order_field_name = 'order'
 
     class Meta:
+        ordering = ('order',)
         verbose_name = 'Турист'
         verbose_name_plural = 'Туристы'
 

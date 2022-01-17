@@ -6,16 +6,17 @@ from django.forms.models import BaseInlineFormSet
 from django.urls import reverse
 from ordered_model.admin import OrderedTabularInline, OrderedInlineModelAdminMixin
 
-from .models import TourPoint, Agreement, ProcessStatus, BusinessProcess, Contract, Bill, Currency
+from .models import TourPoint, Agreement, ProcessStatus, BusinessProcess, Contract, Bill, Currency, Tourist
 from notifications.models import Notification
 
 
 @receiver(post_save, sender=Agreement)
 def create_process(sender, instance, created, **kwargs):
-    process = BusinessProcess.objects.create(agreement=instance, status=ProcessStatus.objects.get(id=1))
     if created:
+        process = BusinessProcess.objects.create(agreement=instance, status=ProcessStatus.objects.get(id=1))
         process.save()
     if instance.ready:
+        process = BusinessProcess.objects.get(agreement=instance, status=ProcessStatus.objects.get(id=1))
         process.status = ProcessStatus.objects.get(id=2)
         process.save()
 
@@ -103,9 +104,9 @@ class HotelPointInlineFormSet(BaseInlineFormSet):
     def clean(self):
         for form in self.forms:
             print(form.cleaned_data)
-            if form.cleaned_data['city'].country != form.cleaned_data['agreement'].country:
+            if form.cleaned_data['city'].country != form.cleaned_data['contract'].country:
                 template = 'Можно выбирать только города в стране: {0.country}'
-                raise ValidationError(template.format(form.cleaned_data['agreement']))
+                raise ValidationError(template.format(form.cleaned_data['contract']))
 
 
 class HotelPointInline(OrderedTabularInline):
@@ -128,10 +129,39 @@ class HotelPointInline(OrderedTabularInline):
             return 'order', 'move_up_down_links',
 
 
+class TouristInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        for form in self.forms:
+            print(form.cleaned_data)
+            # if form.cleaned_data['city'].country != form.cleaned_data['agreement'].country:
+            #     template = 'Можно выбирать только города в стране: {0.country}'
+            #     raise ValidationError(template.format(form.cleaned_data['agreement']))
+
+
+class TouristInline(OrderedTabularInline):
+    model = Tourist
+    formset = TouristInlineFormSet
+    fields = ('move_up_down_links', 'order', 'client',)
+    ordering = ('order',)
+    autocomplete_fields = ('client',)
+    extra = 0
+    can_delete = True
+
+    def get_readonly_fields(self, request, obj):
+        if hasattr(obj, 'ready'):
+            if obj.ready:
+                self.can_delete = False
+                return 'move_up_down_links', 'order', 'client',
+            else:
+                return 'order', 'move_up_down_links',
+        else:
+            return 'order', 'move_up_down_links',
+
+
 @admin.register(Contract)
 class ContractAdmin(admin.ModelAdmin):
     model = Contract
-    inlines = (HotelPointInline,)
+    inlines = (TouristInline, HotelPointInline,)
     list_display = ('id', 'creation_date', 'ready', 'organization', 'client', 'country',)
     list_display_links = None
     list_filter = ('creation_date', 'ready', 'organization', 'country',)
@@ -173,6 +203,12 @@ class CurrencyAdmin(admin.ModelAdmin):
     list_filter = ('update_date',)
     search_fields = ('code', 'name',)
     ordering = ('update_date', 'code',)
+
+    # def get_list_display(self, request):
+    #     with client.settings(raw_response=True):
+    #         response = client.service.GetCursOnDate(date.today())
+    #         print(response)
+    #         return 'code', 'name', 'rate', 'update_date',
 
 
 @admin.register(ProcessStatus)

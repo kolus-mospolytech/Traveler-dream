@@ -48,11 +48,10 @@ class Hotel(models.Model):
     address = models.TextField('Адрес', max_length=255)
 
     def __str__(self):
-        template = '{0.name}'
+        template = '{0.city.name}, {0.name}'
         return template.format(self)
 
     class Meta:
-        unique_together = (('id', 'city'),)
         verbose_name = 'Отель'
         verbose_name_plural = 'Отели'
 
@@ -79,5 +78,5 @@ class RoomType(models.Model):
         return template.format(self)
 
     class Meta:
-        verbose_name = 'Тип комнаты'
-        verbose_name_plural = 'Типы комнаты'
+        verbose_name = 'Тип номера'
+        verbose_name_plural = 'Типы номера'
