@@ -65,7 +65,7 @@ def create_notification(sender, instance, update_fields, **kwargs):
 
         url = reverse('admin:%s_%s_change' % (bill._meta.app_label, bill._meta.model_name), args=[bill.id])
         notification = Notification.objects.create(
-            user=instance.manager,
+            user=instance.accountant,
             link=url,
         )
         notification.save()
@@ -247,6 +247,7 @@ class ContractAdmin(admin.ModelAdmin):
 class BillAdmin(admin.ModelAdmin):
     model = Bill
     list_display = ('id', 'creation_date', 'contract', 'client')
+    list_display_links = None
     list_filter = ('creation_date',)
     search_fields = ('id', 'contract', 'client',)
     ordering = ('creation_date', 'id',)
@@ -271,9 +272,9 @@ class CurrencyAdmin(admin.ModelAdmin):
 
 @admin.register(ProcessStatus)
 class ProcessStatusAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('id', 'name',)
     search_fields = ('name', 'description',)
-    ordering = ('name',)
+    ordering = ('id',)
 
 
 @admin.register(BusinessProcess)

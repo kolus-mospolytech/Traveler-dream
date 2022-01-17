@@ -27,7 +27,7 @@ class Organization(models.Model):
 
 
 class Position(Group):
-    description = models.CharField('Описание', max_length=255, blank=True, null=True)
+    description = models.TextField('Описание', max_length=255, blank=True, null=True)
 
     objects = GroupManager()
 

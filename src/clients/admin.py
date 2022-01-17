@@ -17,7 +17,7 @@ class PassportInline(admin.StackedInline):
 class ClientAdmin(admin.ModelAdmin):
     inlines = (PassportInline,)
     list_display = ('name', 'status',)
-    list_filter = ('status',)
+    list_filter = ('status', 'sex',)
     search_fields = ('name', 'sex',)
     ordering = ('name',)
     autocomplete_fields = ('status',)

@@ -84,8 +84,7 @@ class Contract(models.Model):
                               null=True,
                               verbose_name='Агент')
     client = models.ForeignKey(Client, on_delete=models.CASCADE, db_column='client', verbose_name='Клиент')
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, db_column='country', verbose_name='Страна',
-                                default=1)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, db_column='country', verbose_name='Страна',)
     cities = models.ManyToManyField(City, through='TourPoint', verbose_name='Города')
     persons = models.PositiveIntegerField('Количество туристов')
     tourists = models.ManyToManyField(Client, through='Tourist', related_name='tourists', verbose_name='Туристы')
@@ -154,7 +153,7 @@ class Tourist(models.Model):
 
 class ProcessStatus(models.Model):
     name = models.CharField('Название', max_length=45)
-    description = models.CharField('Описание', max_length=255, blank=True, null=True)
+    description = models.TextField('Описание', max_length=255, blank=True, null=True)
 
     def __str__(self):
         template = '{0.name}'

@@ -9,14 +9,15 @@ from .models import Employee, Position, Organization
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'mail',)
     search_fields = ('name', 'address', 'phone', 'mail',)
-    ordering = ('name',)
+    ordering = ('id',)
 
 
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
     search_fields = ('name',)
-    ordering = ('name',)
+    ordering = ('id',)
     filter_horizontal = ('permissions',)
 
     def formfield_for_manytomany(self, db_field, request=None, **kwargs):
@@ -31,8 +32,8 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = Employee
-    list_display = ('name', 'organization', 'groups', 'username', 'is_active',)
-    list_filter = ('organization', 'groups', 'is_active',)
+    list_display = ('name', 'organization', 'groups', 'username',)
+    list_filter = ('groups', 'is_active', 'organization',)
     search_fields = ('name', 'organization__name', 'username', 'is_active',)
     ordering = ('name', 'organization',)
     filter_horizontal = ()
@@ -46,8 +47,8 @@ class CustomUserAdmin(UserAdmin):
             queryset = get_user_model().objects.filter(groups=2)
         elif request.GET.get('field_name', '') == 'agent':
             queryset = get_user_model().objects.filter(groups=4)
-        else:
-            queryset = get_user_model().objects.all()
+        # else:
+        #     queryset = get_user_model().objects.all()
         results = super().get_search_results(request, queryset, search_term)
         return results
 
