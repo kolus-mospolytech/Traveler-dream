@@ -45,12 +45,17 @@ class Agreement(models.Model):
 class Bill(models.Model):
     creation_date = models.DateTimeField('Дата выписки', auto_now_add=True)
     cost = models.DecimalField('Стоимость', max_digits=10, decimal_places=2)
-    payed = models.BooleanField('Оплачено')
+    payed = models.BooleanField('Оплачено', default=False)
     payment_date = models.DateTimeField('Дата платежа', blank=True, null=True)
 
     def __str__(self):
         template = 'Чек №{0.id} от {0.creation_date}'
         return template.format(self)
+
+    def clean(self):
+        if self.payed and not self.payment_date:
+            self.payed = not self.payed
+            raise ValidationError('Нельзя провести оплату без указания времени оплаты')
 
     class Meta:
         verbose_name = 'Чек'
@@ -137,17 +142,12 @@ class TourPoint(OrderedModel):
         verbose_name_plural = 'Города посещения'
 
 
-class Tourist(OrderedModel):
-    contract = models.OneToOneField(Contract, models.CASCADE, db_column='contract', primary_key=True,
-                                    verbose_name='Договор')
+class Tourist(models.Model):
+    contract = models.ForeignKey(Contract, models.CASCADE, db_column='contract', verbose_name='Договор')
     client = models.ForeignKey(Client, models.CASCADE, db_column='client', verbose_name='Клиент')
-    order = models.PositiveIntegerField('Порядок')
-
-    order_with_respect_to = 'agreement'
-    order_field_name = 'order'
 
     class Meta:
-        ordering = ('order',)
+        unique_together = ('contract', 'client',)
         verbose_name = 'Турист'
         verbose_name_plural = 'Туристы'
 
@@ -168,6 +168,9 @@ class ProcessStatus(models.Model):
 class BusinessProcess(models.Model):
     manager = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column='manager', blank=True,
                                 null=True, verbose_name='Менеджер')
+    accountant = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='accountant_process',
+                                   db_column='accountant', blank=True,
+                                   null=True, verbose_name='Бухгалтер')
     agreement = models.ForeignKey(Agreement, on_delete=models.CASCADE, db_column='agreement',
                                   verbose_name="Предварительное соглашение")
     status = models.ForeignKey(ProcessStatus, models.CASCADE, db_column='status', verbose_name="Статус")

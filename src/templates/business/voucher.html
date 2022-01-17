@@ -1,0 +1,95 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ваучер</title>
+
+    <style>
+        div {
+            display: flex;
+        }
+
+        h4 {
+            margin: 0;
+            padding: 0;
+        }
+
+        .block-main {
+            border: 1px solid black;
+            padding: 15px;
+            margin: 15px;
+        }
+
+        .block-hor h4 {
+            margin: 10px;
+        }
+
+        .block-hor span {
+            margin: 10px;
+        }
+
+        .block-hor {
+            flex-direction: column;
+        }
+    </style>
+
+</head>
+<body>
+<div class="block-main">
+    <div class="block-hor">
+        <h4>Клиент</h4>
+        <h4>Туристы</h4>
+    </div>
+    <div class="block-hor">
+        <span>{{ contract.client }}</span>
+        {% for tourist in tourists %}
+            <span>{{ tourist.client.name }}</span>
+        {% endfor %}
+    </div>
+</div>
+<div class="block-main">
+    <div class="block-hor">
+        <h4>Период путешествия</h4>
+    </div>
+    <div class="block-hor">
+        <span>{{ contract.trip_start }} - {{ contract.trip_end }}</span>
+    </div>
+</div>
+<div class="block-main">
+    <div class="block-hor">
+        <h4>Страна</h4>
+    </div>
+    <div class="block-hor">
+        <span>{{ contract.country }}</span>
+    </div>
+</div>
+<div class="block-main">
+    <div class="block-hor">
+        <h4>Проживание</h4>
+    </div>
+    {% for hotel in hotels %}
+        <div class="block-hor">
+            <span>{{ hotel.hotel }}</span>
+            <span>Дата заезда: {{ hotel.start_date }}</span>
+            <span>Дата выезда: {{ hotel.end_date }}</span>
+        </div>
+        <div class="block-hor">
+            <span>Номер: {{ hotel.room_type }}</span>
+            <span>Питание: {{ hotel.feeding_type }}</span>
+        </div>
+    {% endfor %}
+</div>
+<span>Благодарим Вас, что Вы воспользовались услугами ООО «Мечта путешественника». <br>
+
+По всем вопросам во время путешествия обращайтесь в службу сопровождениях по тел. 8(800)2000000. <br>
+
+Приятного отдыха!
+</span>
+</body>
+</html>
+

@@ -4,9 +4,9 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils import timezone
+from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
-from django.utils.html import mark_safe
 
 from .managers import CustomUserManager
 
@@ -103,10 +103,6 @@ class Employee(AbstractBaseUser, PermissionsMixin):
             pass
 
     image_tag.short_description = 'Превью фото'
-
-    def for_search(self):
-        template = '{0.organization.name}, {0.name}'
-        return template.format(self)
 
     def __str__(self):
         template = '{0.organization.name}, {0.name}'
